@@ -175,11 +175,15 @@ export default function Home() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isTyping, setIsTyping] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const galleryRef = useRef<HTMLDivElement>(null);
+  const contentContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [activeSection, setActiveSection] = useState<string>('terminal');
   const [showSection, setShowSection] = useState(false);
-  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
-  const contentContainerRef = useRef<HTMLDivElement>(null);
+
+  // Simplified visibility calculations
+  const welcomeOpacity = Math.max(0, 1 - scrollProgress / 25);
+  const terminalVisible = scrollProgress > 60;
+  const headerVisible = scrollProgress > 30;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -199,12 +203,6 @@ export default function Home() {
       contentContainerRef.current.scrollTop = contentContainerRef.current.scrollHeight;
     }
   }, [history]);
-
-  // Simplified visibility calculations
-  const welcomeOpacity = Math.max(0, 1 - scrollProgress / 30);
-  const galleryProgress = Math.max(0, Math.min(1, (scrollProgress - 20) / 50));
-  const terminalVisible = scrollProgress > 60;
-  const galleryTranslate = -(galleryProgress * 100);
 
   const typeWriter = (text: string, callback: (text: string) => void) => {
     let i = 0;
@@ -254,7 +252,7 @@ export default function Home() {
                 <li key={cmd}>
                   <span className="command-name">{cmd}</span>
                   <span className="command-description">{desc}</span>
-          </li>
+                </li>
               ))}
             </ul>
             <p className="mt-4 text-sm text-gray-600">
@@ -312,13 +310,13 @@ export default function Home() {
           <div className="mb-2 command-output">
             <p className="mb-2 sparkle">✨ Education ✨</p>
             <div className="ml-4">
-              <p className="cute-bullet">University of Toronto</p>
-              <p className="ml-4">📚 Computer Science</p>
+              <p className="cute-bullet">University of Waterloo</p>
+              <p className="ml-4">📚 Systems Design Engineering</p>
               <p className="ml-4">🎀 Notable Coursework:</p>
               <ul className="ml-8">
                 <li>💫 Data Structures & Algorithms</li>
-                <li>💫 Software Engineering</li>
-                <li>💫 Computer Systems</li>
+                <li>💫 Human Factors in Design</li>
+                <li>💫 Engineering Prototyping</li>
               </ul>
             </div>
           </div>
@@ -331,7 +329,6 @@ export default function Home() {
             <p className="mb-2 sparkle">✨ Contact Information ✨</p>
             <div className="ml-4">
               <p className="cute-bullet">📧 Email: jadiha.arul@gmail.com</p>
-              <p className="cute-bullet">📍 Location: Toronto, Ontario, Canada</p>
             </div>
           </div>
         );
@@ -376,13 +373,10 @@ export default function Home() {
             <p className="mt-2">Systems Design Engineering @ University of Waterloo 💻</p>
             <p className="mt-2">🎯 Currently focused on:</p>
             <ul className="ml-4">
-              <li className="cute-bullet">Full-stack Development</li>
-              <li className="cute-bullet">Systems Architecture</li>
-              <li className="cute-bullet">Human-Centered Design</li>
-              <li className="cute-bullet">Cloud & DevOps</li>
+              <li className="cute-bullet">Software Development in various domains</li>
             </ul>
             <p className="mt-2">🚀 Previously worked at Amazon, Real Life Robotics, MPAC, and Home Trust Company</p>
-            <p className="mt-2 text-pink-500">📧 Open to Winter 2024 opportunities!</p>
+            <p className="mt-2 text-pink-500">📧 Open to Winter 2026 opportunities!</p>
           </div>
         );
         break;
@@ -510,7 +504,7 @@ export default function Home() {
       {/* Navigation Header */}
       <header 
         className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
-          scrollProgress > 60 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
+          headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
         }`}
       >
         <nav className="bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
@@ -518,9 +512,9 @@ export default function Home() {
             <div className="flex justify-between h-16">
               <div className="flex items-center">
                 <motion.span 
-                  className="pixel-text cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="header-name cursor-pointer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => handleCloseSection()}
                 >
                   Jadiha Arul
@@ -531,13 +525,13 @@ export default function Home() {
                   <motion.button
                     key={item.label}
                     onClick={() => handleNavClick(item.label.toLowerCase())}
-                    className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-2 ${
+                    className={`nav-item flex items-center gap-2 ${
                       activeSection === item.label.toLowerCase()
                         ? 'text-pink-500'
-                        : 'text-gray-600 hover:text-pink-400'
+                        : 'text-gray-600'
                     }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <span>{item.icon}</span>
                     {item.label}
@@ -554,7 +548,7 @@ export default function Home() {
         className="welcome-section min-h-screen flex items-center justify-center fixed top-0 left-0 w-full z-[40]"
         style={{ 
           opacity: welcomeOpacity,
-          visibility: welcomeOpacity === 0 ? 'hidden' : 'visible'
+          visibility: scrollProgress > 20 ? 'hidden' : 'visible'
         }}
       >
         <div className="text-center p-8 relative">
@@ -623,35 +617,43 @@ export default function Home() {
 
       {/* Gallery Section */}
       <section 
-        className="gallery-section min-h-screen sticky top-0 overflow-hidden flex items-center z-[30]"
+        className="gallery-section"
         style={{ 
           opacity: Math.min(1, (scrollProgress - 15) / 15),
-          visibility: scrollProgress > 80 ? 'hidden' : 'visible'
+          visibility: scrollProgress > 60 ? 'hidden' : 'visible'
         }}
       >
-        <div 
-          ref={galleryRef}
-          className="flex gap-8 px-8 transition-transform duration-300 ease-out"
-          style={{ transform: `translateX(${galleryTranslate}%)` }}
-        >
-          {GALLERY_IMAGES.map((image, index) => (
-            <div
-              key={index}
-              className="flex-none w-[500px]"
-            >
-              <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-lg">
+        <div className="gallery-container">
+          <div 
+            className="gallery-track"
+            style={{
+              transform: `translateX(${Math.min(
+                Math.max(
+                  -((scrollProgress - 20) / 30) * ((GALLERY_IMAGES.length + 0.5) * 520),
+                  -((GALLERY_IMAGES.length + 0.5) * 520)
+                ),
+                0
+              )}px)`
+            }}
+          >
+            {GALLERY_IMAGES.map((image, index) => (
+              <div
+                key={index}
+                className="gallery-item"
+              >
                 <img
                   src={`/gallery/${image.src}`}
                   alt={image.title}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full hover:translate-y-0 transition-transform duration-300">
                   <h3 className="text-xl font-semibold">{image.title}</h3>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1043,10 +1045,10 @@ export default function Home() {
             )}
           </div>
         </div>
-    </div>
+      </div>
 
-      {/* Spacer for scroll height */}
-      <div style={{ height: '300vh' }} />
+      {/* Spacer to control scroll range */}
+      <div style={{ height: `${Math.max(350, GALLERY_IMAGES.length * 60)}vh` }} />
     </main>
   );
 }

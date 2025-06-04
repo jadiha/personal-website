@@ -113,12 +113,16 @@ section {
 }
 
 .gallery-section {
-  z-index: 30;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.98),
-    rgba(255, 245, 247, 0.99)
-  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.98), rgba(255, 245, 247, 0.99));
+  z-index: 45;
 }
 
 .terminal-section {
@@ -183,6 +187,8 @@ section {
   margin: 1rem 0;
   color: #4a4a4a;
   font-family: 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
   scroll-behavior: smooth;
 }
 
@@ -191,9 +197,9 @@ section {
   background: rgba(219, 112, 147, 0.05);
   border: 1px solid rgba(219, 112, 147, 0.1);
   border-radius: 8px;
-  padding: 0.75rem 1rem;
-  margin: 0.5rem 0;
-  line-height: 1.5;
+  padding: 0.625rem 0.875rem;
+  margin: 0.375rem 0;
+  line-height: 1.4;
   opacity: 0;
   animation: fadeIn 0.3s ease forwards;
 }
@@ -203,6 +209,7 @@ section {
   align-items: center;
   gap: 0.25rem;
   color: #6a6a6a;
+  font-size: 0.85rem;
 }
 
 .terminal-prompt span {
@@ -216,6 +223,7 @@ section {
 input {
   color: #4a4a4a;
   caret-color: #db7093;
+  font-size: 0.85rem;
 }
 
 input::placeholder {
@@ -226,12 +234,12 @@ input::placeholder {
 .command-list {
   list-style: none;
   padding: 0;
-  margin: 0.5rem 0;
-  font-size: 0.875rem; /* 14px */
+  margin: 0.375rem 0;
+  font-size: 0.8rem;
 }
 
 .command-list li {
-  padding: 0.25rem 0;
+  padding: 0.2rem 0;
   display: flex;
   align-items: baseline;
   gap: 0.75rem;
@@ -241,12 +249,13 @@ input::placeholder {
 .command-list .command-name {
   color: #db7093;
   font-weight: 500;
-  min-width: 100px;
+  min-width: 90px;
+  font-size: 0.8rem;
 }
 
 .command-list .command-description {
   color: #6a6a6a;
-  font-size: 0.8125rem; /* 13px */
+  font-size: 0.8rem;
 }
 
 /* Adjust help message text size */
@@ -259,13 +268,14 @@ input::placeholder {
 .ascii-art {
   font-family: monospace;
   white-space: pre;
-  line-height: 1.1;
+  line-height: 1;
   text-align: center;
   color: #db7093;
-  margin: 0.5rem 0 1rem 0;
+  margin: 0.375rem 0 0.75rem 0;
   opacity: 0.9;
-  transform: scale(0.9);
+  transform: scale(0.8);
   transform-origin: center;
+  font-size: 0.7rem;
 }
 
 /* Scrollbar styling */
@@ -409,6 +419,7 @@ a:hover {
 /* Sparkle animation */
 .sparkle {
   position: relative;
+  font-size: 0.9rem;
 }
 
 .sparkle::before,
@@ -528,75 +539,103 @@ a:hover::before {
   );
 }
 
-/* Horizontal scrolling gallery */
+/* Gallery styling */
 .gallery-container {
-  height: 70vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  perspective: 1px;
-  transform-style: preserve-3d;
-  scroll-behavior: smooth;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 1rem 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
 .gallery-track {
   display: flex;
   gap: 2rem;
-  position: sticky;
-  top: 50%;
-  transform: translateY(-50%);
+  padding: 0 4rem;
+  position: relative;
   will-change: transform;
-  padding: 1rem;
   transition: transform 0.1s ease-out;
+  min-width: max-content;
+  margin-left: 100%;
 }
 
 .gallery-item {
-  flex: 0 0 400px;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
+  flex: 0 0 500px;
+  height: 400px;
+  position: relative;
+  border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  border: 2px solid rgba(var(--foreground-rgb), 0.1);
-}
-
-.gallery-item:hover {
-  transform: scale(1.05) translateY(-10px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: white;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 .gallery-item:hover img {
   transform: scale(1.05);
 }
 
-/* Gallery scroll progress indicator */
-.scroll-progress {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 4px;
-  width: 200px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
 
-.scroll-progress-bar {
-  height: 100%;
-  background: rgb(var(--foreground-rgb));
-  border-radius: 2px;
-  transition: width 0.1s ease;
+.gallery-nav:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.gallery-nav.prev {
+  left: 2rem;
+}
+
+.gallery-nav.next {
+  right: 2rem;
+}
+
+.gallery-dots {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.gallery-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(219, 112, 147, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+}
+
+.gallery-dot.active {
+  background: rgba(219, 112, 147, 1);
+  transform: scale(1.2);
 }
 
 /* Scroll indicator animation */
@@ -766,5 +805,34 @@ a:hover::before {
 .tech-tag:hover {
   background: rgba(219, 112, 147, 0.2);
   transform: translateY(-1px);
+}
+
+/* Update command output specific text */
+.command-output p {
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
+}
+
+.command-output ul {
+  margin: 0.25rem 0;
+}
+
+.command-output li {
+  font-size: 0.85rem;
+  margin: 0.125rem 0;
+}
+
+.header-name, .nav-item {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+}
+
+.header-name:hover, .nav-item:hover {
+  color: #db7093;
 }
 
