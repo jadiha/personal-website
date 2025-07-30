@@ -1,8 +1,8 @@
-        'use client';
+'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import Head from 'next/head';
+import Image from 'next/image';
 
 interface CommandHistory {
   command: string;
@@ -22,38 +22,6 @@ const COMMANDS = [
   'socials',
   'gallery'
 ];
-
-const CUTE_EMOJIS = ['🌸', '✨', '🎀', '💖', '🌟', '🍰', '🌺', '💝', '🦄', '🌈'];
-
-function FloatingHearts() {
-  const [hearts, setHearts] = useState<{ id: number; left: number; delay: number }[]>([]);
-
-  useEffect(() => {
-    const newHearts = Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 5
-    }));
-    setHearts(newHearts);
-  }, []);
-
-  return (
-    <div className="floating-hearts">
-      {hearts.map((heart) => (
-        <div
-          key={heart.id}
-          className="heart"
-          style={{
-            left: `${heart.left}%`,
-            animation: `float-heart 6s ease-in-out ${heart.delay}s infinite`
-          }}
-        >
-          {CUTE_EMOJIS[Math.floor(Math.random() * CUTE_EMOJIS.length)]}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 const ASCII_ART = `
      ██╗ █████╗ ██████╗ ██╗██╗  ██╗ █████╗     █████╗ ██████╗ ██╗   ██╗██╗     
@@ -75,6 +43,8 @@ const GALLERY_IMAGES = [
   { src: 'IMG-20240715-WA0005.jpg', title: 'Project Demo' }
 ];
 
+// Navigation items - Commented out for deployment
+/*
 const NAVIGATION_ITEMS = [
   { label: 'About', href: '#about', icon: '👋' },
   { label: 'Experience', href: '#experience', icon: '💼' },
@@ -85,21 +55,44 @@ const NAVIGATION_ITEMS = [
 
 const SKILLS_DATA = {
   languages: [
-    { name: 'TypeScript', level: 90, icon: '📘' },
-    { name: 'Python', level: 85, icon: '🐍' },
-    { name: 'Ruby', level: 80, icon: '💎' },
-    { name: 'Java', level: 75, icon: '☕' }
+    { name: 'Python', level: 95, icon: '🐍', description: 'ML, Data Analysis, Backend' },
+    { name: 'TypeScript', level: 90, icon: '📘', description: 'Full-stack Development' },
+    { name: 'JavaScript', level: 90, icon: '💛', description: 'Web Development' },
+    { name: 'C++', level: 85, icon: '⚡', description: 'Systems Programming' },
+    { name: 'Ruby', level: 80, icon: '💎', description: 'Web Development' },
+    { name: 'Java', level: 75, icon: '☕', description: 'Backend Development' }
   ],
-  frameworks: [
-    { name: 'React.js', level: 90, icon: '⚛️' },
-    { name: 'Next.js', level: 85, icon: '▲' },
-    { name: 'Node.js', level: 85, icon: '🟢' },
-    { name: 'ROS', level: 75, icon: '🤖' }
+  frontend: [
+    { name: 'React.js', level: 95, icon: '⚛️', description: 'UI Development' },
+    { name: 'Next.js', level: 90, icon: '▲', description: 'Full-stack Framework' },
+    { name: 'Tailwind CSS', level: 90, icon: '🎨', description: 'Styling' },
+    { name: 'TypeScript', level: 85, icon: '🔷', description: 'Type Safety' },
+    { name: 'HTML/CSS', level: 85, icon: '🎯', description: 'Web Fundamentals' }
+  ],
+  backend: [
+    { name: 'Node.js', level: 90, icon: '🟢', description: 'Server Runtime' },
+    { name: 'Express.js', level: 85, icon: '🚂', description: 'Web Framework' },
+    { name: 'REST APIs', level: 85, icon: '🔌', description: 'API Design' },
+    { name: 'GraphQL', level: 80, icon: '📊', description: 'API Query Language' },
+    { name: 'ROS', level: 75, icon: '🤖', description: 'Robotics Framework' }
+  ],
+  databases: [
+    { name: 'PostgreSQL', level: 85, icon: '🐘', description: 'Relational DB' },
+    { name: 'MongoDB', level: 85, icon: '🍃', description: 'NoSQL DB' },
+    { name: 'Redis', level: 80, icon: '⚡', description: 'In-memory Cache' },
+    { name: 'Firebase', level: 80, icon: '🔥', description: 'Real-time DB' }
   ],
   cloud: [
-    { name: 'AWS', level: 80, icon: '☁️' },
-    { name: 'Docker', level: 75, icon: '🐳' },
-    { name: 'Git', level: 90, icon: '📚' }
+    { name: 'AWS', level: 85, icon: '☁️', description: 'Cloud Platform' },
+    { name: 'Docker', level: 80, icon: '🐳', description: 'Containerization' },
+    { name: 'Git', level: 90, icon: '📚', description: 'Version Control' },
+    { name: 'CI/CD', level: 85, icon: '🔄', description: 'Automation' }
+  ],
+  tools: [
+    { name: 'VS Code', level: 90, icon: '💻', description: 'IDE' },
+    { name: 'Postman', level: 85, icon: '📬', description: 'API Testing' },
+    { name: 'Jira', level: 85, icon: '📋', description: 'Project Management' },
+    { name: 'Figma', level: 80, icon: '🎨', description: 'UI/UX Design' }
   ]
 };
 
@@ -120,70 +113,23 @@ const PROJECTS_DATA = [
   },
   // Add more projects...
 ];
-
-function Gallery() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      const scrollPercentage = (container.scrollTop / (container.scrollHeight - container.clientHeight)) * 100;
-      setScrollProgress(scrollPercentage);
-      
-      // Calculate horizontal scroll based on vertical scroll
-      const track = container.querySelector('.gallery-track') as HTMLElement;
-      if (track) {
-        const translateX = -(scrollPercentage / 100) * (track.offsetWidth - container.clientWidth);
-        track.style.transform = `translate3d(${translateX}px, -50%, 0)`;
-      }
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <div className="gallery-container" ref={containerRef}>
-      <div className="gallery-track">
-        {GALLERY_IMAGES.map((imageName, index) => (
-          <div key={index} className="gallery-item">
-            <img
-              src={`/gallery/${imageName.src}`}
-              alt={imageName.title}
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
-      <div className="scroll-progress">
-        <div 
-          className="scroll-progress-bar"
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
-    </div>
-  );
-}
+*/
 
 export default function Home() {
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<CommandHistory[]>([]);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [isTyping, setIsTyping] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const contentContainerRef = useRef<HTMLDivElement>(null);
-  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
-  const [activeSection, setActiveSection] = useState<string>('terminal');
-  const [showSection, setShowSection] = useState(false);
+  // const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  // const [activeSection, setActiveSection] = useState<string>('terminal');
+  // const [showSection, setShowSection] = useState(false);
 
   // Simplified visibility calculations
   const welcomeOpacity = Math.max(0, 1 - scrollProgress / 25);
   const terminalVisible = scrollProgress > 60;
-  const headerVisible = scrollProgress > 30;
+  // const headerVisible = scrollProgress > 30;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -199,28 +145,14 @@ export default function Home() {
 
   // Add auto-scroll effect when history changes
   useEffect(() => {
-    if (contentContainerRef.current) {
-      contentContainerRef.current.scrollTop = contentContainerRef.current.scrollHeight;
+    const contentContainer = contentContainerRef.current;
+    if (contentContainer) {
+      const terminalContent = contentContainer.querySelector('.terminal-content');
+      if (terminalContent) {
+        terminalContent.scrollTop = terminalContent.scrollHeight;
+      }
     }
   }, [history]);
-
-  const typeWriter = (text: string, callback: (text: string) => void) => {
-    let i = 0;
-    setIsTyping(true);
-    const speed = 30;
-
-    const type = () => {
-      if (i < text.length) {
-        callback(text.slice(0, i + 1));
-        i++;
-        setTimeout(type, speed);
-      } else {
-        setIsTyping(false);
-      }
-    };
-
-    type();
-  };
 
   const handleCommand = (command: string) => {
     const cmd = command.toLowerCase().trim();
@@ -235,52 +167,150 @@ export default function Home() {
       case 'help':
         output = (
           <div className="command-output">
-            <h2 className="section-heading">Available Commands</h2>
-            <ul className="command-list">
+            <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm">
               {[
-                ['about', 'Learn about me'],
-                ['experience', 'View my work experience'],
-                ['skills', 'List my technical skills'],
-                ['projects', 'View my projects'],
-                ['education', 'View my education'],
-                ['contact', 'Get my contact information'],
-                ['socials', 'View my social media links'],
-                ['download', 'Download my resume'],
-                ['clear', 'Clear the terminal'],
-                ['help', 'Show this help message']
+                ['about', '👋 Learn about me'],
+                ['experience', '💼 View my work experience'],
+                ['skills', '💫 List my technical skills'],
+                ['projects', '🚀 View my projects'],
+                ['socials', '📬 Contact & social links'],
+                ['download', '📄 Download my resume'],
+                ['clear', '🧹 Clear the terminal'],
+                ['help', '❓ Show commands']
               ].map(([cmd, desc]) => (
-                <li key={cmd}>
-                  <span className="command-name">{cmd}</span>
-                  <span className="command-description">{desc}</span>
-                </li>
+                <div key={cmd} className="flex items-center gap-1.5">
+                  <span className="text-pink-500 font-medium min-w-[70px] text-xs">{cmd}</span>
+                  <span className="text-gray-600 text-xs">{desc}</span>
+                </div>
               ))}
-            </ul>
-            <p className="mt-4 text-sm text-gray-600">
-              Tip: Use ↑↓ keys to navigate through command history and Tab for command completion
-            </p>
+            </div>
           </div>
         );
         break;
 
       case 'skills':
         output = (
-          <div className="mb-2 command-output">
-            <p className="mb-2 sparkle">✨ Technical Skills ✨</p>
-            <div className="ml-4">
-              <p className="cute-bullet">Languages:</p>
-              <p className="ml-4">JavaScript/TypeScript, Python, Ruby, Java</p>
-              
-              <p className="mt-2 cute-bullet">Technologies:</p>
-              <p className="ml-4">React.js, Node.js, Next.js, ROS (Robot Operating System)</p>
-              
-              <p className="mt-2 cute-bullet">Cloud & DevOps:</p>
-              <p className="ml-4">AWS (Boto3), Git, Docker</p>
-              
-              <p className="mt-2 cute-bullet">Tools:</p>
-              <p className="ml-4">Postman, CodeceptJS, REST APIs</p>
+          <div className="command-output">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-pink-500 font-medium mb-1">Languages</p>
+                <p className="text-gray-600">Python, Javascript,TypeScript, C++, Ruby, Java</p>
+              </div>
+              <div>
+                <p className="text-pink-500 font-medium mb-1">Technologies</p>
+                <p className="text-gray-600">React.js, Node.js, Next.js, ROS</p>
+              </div>
+              <div>
+                <p className="text-pink-500 font-medium mb-1">Cloud & DevOps</p>
+                <p className="text-gray-600">AWS, Git, Docker</p>
+              </div>
+              <div>
+                <p className="text-pink-500 font-medium mb-1">Tools</p>
+                <p className="text-gray-600">Postman, CodeceptJS, REST APIs</p>
+              </div>
             </div>
           </div>
         );
+        break;
+
+      case 'about':
+        output = (
+          <div className="command-output">
+            <div className="space-y-3">
+              <div>
+                <p className="text-3xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                  Hi! I&apos;m Jadiha 👋
+                </p>
+                <p className="text-gray-600 mt-2">
+                  A Systems Design Engineering student at UWaterloo. 
+                  I&apos;m passionate about building impactful software products and have gained valuable experience at companies like Amazon and Wealthsimple. 
+                  Always looking for opportunities to make a positive difference in the tech space!
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-3">
+                <div>
+                  <p className="text-pink-500 font-medium">🎯 Focus Areas</p>
+                  <p className="text-gray-600 ml-4">• Software Development</p>
+                  <p className="text-gray-600 ml-4">• Product Management</p>
+                  <p className="text-gray-600 ml-4">• Systems Design</p>
+                </div>
+                <div>
+                  <p className="text-pink-500 font-medium">💼 Recent Work</p>
+                  <p className="text-gray-600 ml-4">• Amazon</p>
+                  <p className="text-gray-600 ml-4">• Wealthsimple</p>
+                  <p className="text-gray-600 ml-4">• Real Life Robotics</p>
+                </div>
+              </div>
+              <p className="text-pink-500 font-medium mt-2">📧 Open to Winter 2026 opportunities!</p>
+            </div>
+          </div>
+        );
+        break;
+
+      case 'experience':
+        output = (
+          <div className="command-output">
+            <div className="space-y-3">
+              <div>
+                <p className="text-pink-500 font-medium">Amazon | Software Engineer Intern</p>
+                <p className="text-gray-600 ml-4">• Built real-time cron tracking interface</p>
+                <p className="text-gray-600 ml-4">• Improved system uptime by 65%</p>
+              </div>
+              <div>
+                <p className="text-pink-500 font-medium">Real Life Robotics | Full Stack Engineer</p>
+                <p className="text-gray-600 ml-4">• Built real-time robot communication system</p>
+                <p className="text-gray-600 ml-4">• Improved task success rate by 75%</p>
+              </div>
+            </div>
+            <p className="mt-2 text-gray-500">Type &apos;about&apos; for more info or click Experience in header</p>
+          </div>
+        );
+        break;
+
+      case 'socials':
+        output = (
+          <div className="command-output">
+            <p className="text-pink-500 font-medium mb-3">📬 Contact & Social Links</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-gray-600 font-medium">Email</p>
+                <p className="text-pink-400">jadiha.arul@gmail.com</p>
+              </div>
+              <div>
+                <p className="text-gray-600 font-medium">LinkedIn</p>
+                <a href="https://www.linkedin.com/in/jadiha-aruleswaran/" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="text-pink-400 hover:underline">
+                  View Profile
+                </a>
+              </div>
+              <div>
+                <p className="text-gray-600 font-medium">GitHub</p>
+                <a href="https://github.com/jadiha" 
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="text-pink-400 hover:underline">
+                  @jadiha
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+        break;
+
+      case 'download':
+        output = (
+          <div className="mb-2 command-output">
+            <p>📄 Downloading resume...</p>
+            <p className="text-purple-400">
+              <a href="/resume.pdf" download className="hover:underline">
+                Click here if the download doesn&apos;t start automatically
+              </a>
+            </p>
+          </div>
+        );
+        // Add actual download logic here
         break;
 
       case 'projects':
@@ -300,99 +330,6 @@ export default function Home() {
                 <p className="cute-bullet">More coming soon!</p>
                 <p className="ml-4">Stay tuned for more magical projects! ✨</p>
               </div>
-            </div>
-          </div>
-        );
-        break;
-
-      case 'education':
-        output = (
-          <div className="mb-2 command-output">
-            <p className="mb-2 sparkle">✨ Education ✨</p>
-            <div className="ml-4">
-              <p className="cute-bullet">University of Waterloo</p>
-              <p className="ml-4">📚 Systems Design Engineering</p>
-              <p className="ml-4">🎀 Notable Coursework:</p>
-              <ul className="ml-8">
-                <li>💫 Data Structures & Algorithms</li>
-                <li>💫 Human Factors in Design</li>
-                <li>💫 Engineering Prototyping</li>
-              </ul>
-            </div>
-          </div>
-        );
-        break;
-
-      case 'contact':
-        output = (
-          <div className="mb-2 command-output">
-            <p className="mb-2 sparkle">✨ Contact Information ✨</p>
-            <div className="ml-4">
-              <p className="cute-bullet">📧 Email: jadiha.arul@gmail.com</p>
-            </div>
-          </div>
-        );
-        break;
-
-      case 'socials':
-        output = (
-          <div className="mb-2 command-output">
-            <p className="mb-2 sparkle">✨ Social Media Links ✨</p>
-            <div className="ml-4">
-              <p className="cute-bullet">
-                <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" 
-                   className="text-pink-400 hover:underline">LinkedIn</a>
-              </p>
-              <p className="cute-bullet">
-                <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer"
-                   className="text-pink-400 hover:underline">GitHub</a>
-              </p>
-            </div>
-          </div>
-        );
-        break;
-
-      case 'download':
-        output = (
-          <div className="mb-2 command-output">
-            <p>📄 Downloading resume...</p>
-            <p className="text-purple-400">
-              <a href="/resume.pdf" download className="hover:underline">
-                Click here if the download doesn't start automatically
-              </a>
-            </p>
-          </div>
-        );
-        // Add actual download logic here
-        break;
-
-      case 'about':
-        output = (
-          <div className="mb-2 command-output">
-            <p className="sparkle">✨ Hi! I'm Jadiha ✨</p>
-            <p className="mt-2">Systems Design Engineering @ University of Waterloo 💻</p>
-            <p className="mt-2">🎯 Currently focused on:</p>
-            <ul className="ml-4">
-              <li className="cute-bullet">Software Development in various domains</li>
-            </ul>
-            <p className="mt-2">🚀 Previously worked at Amazon, Real Life Robotics, MPAC, and Home Trust Company</p>
-            <p className="mt-2 text-pink-500">📧 Open to Winter 2026 opportunities!</p>
-          </div>
-        );
-        break;
-
-      case 'experience':
-        output = (
-          <div className="mb-2 command-output">
-            <p className="mb-2 sparkle">✨ Work Experience ✨</p>
-            <div className="space-y-4">
-              <div className="ml-4">
-                <p className="cute-bullet">Wealthsimple | Software Engineer Intern</p>
-                <p className="ml-8">🎀 May 2025 - Present</p>
-                <p className="ml-8">🌸 Toronto, Ontario, Canada (Hybrid)</p>
-                <p className="ml-8">💖 Investing Products</p>
-              </div>
-              <p className="mt-4 text-pink-400">Type 'about' to learn more about me or click Experience in the header for my detailed work history! ✨</p>
             </div>
           </div>
         );
@@ -422,7 +359,7 @@ export default function Home() {
       default:
         output = (
           <div className="text-pink-400 command-output bounce-hover">
-            Command not found. Type 'help' for available commands! 
+            Command not found. Type &apos;help&apos; for available commands! 
             <span className="ml-2 rainbow-text">🌸</span>
           </div>
         );
@@ -455,7 +392,7 @@ export default function Home() {
       if (matchingCommands.length === 1) {
         setInput(matchingCommands[0]);
       }
-    } else if (e.key === 'Enter' && !isTyping) {
+    } else if (e.key === 'Enter') {
       handleCommand(input);
       setInput('');
     }
@@ -465,7 +402,8 @@ export default function Home() {
     handleCommand('help');
   }, []);
 
-  // Update navigation click handler
+  // Update navigation click handler - Commented out for deployment
+  /*
   const handleNavClick = (section: string) => {
     setActiveSection(section);
     setShowSection(true);
@@ -498,10 +436,12 @@ export default function Home() {
       terminalSection.style.pointerEvents = 'auto';
     }
   };
+  */
 
   return (
     <main className="relative">
-      {/* Navigation Header */}
+      {/* Navigation Header - Commented out for deployment */}
+      {/*
       <header 
         className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
           headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
@@ -517,7 +457,7 @@ export default function Home() {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleCloseSection()}
                 >
-                  Jadiha Arul
+                  Jadiha Aruleswaran
                 </motion.span>
               </div>
               <div className="hidden sm:flex sm:items-center sm:space-x-8">
@@ -526,9 +466,9 @@ export default function Home() {
                     key={item.label}
                     onClick={() => handleNavClick(item.label.toLowerCase())}
                     className={`nav-item flex items-center gap-2 ${
-                      activeSection === item.label.toLowerCase()
-                        ? 'text-pink-500'
-                        : 'text-gray-600'
+                      // activeSection === item.label.toLowerCase()
+                      //   ? 'text-pink-500'
+                      //   : 'text-gray-600'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -542,6 +482,7 @@ export default function Home() {
           </div>
         </nav>
       </header>
+      */}
 
       {/* Welcome Section */}
       <section 
@@ -565,9 +506,11 @@ export default function Home() {
           >
             <div className="w-40 h-40 mx-auto relative">
               <div className="absolute inset-0 bg-gradient-to-br from-pink-200 to-purple-200 rounded-full animate-pulse"></div>
-              <img
+              <Image
                 src="/avatars/avatar.png"
                 alt="Cute waving avatar"
+                width={160}
+                height={160}
                 className="relative z-10 w-full h-full object-contain drop-shadow-lg"
               />
               <motion.div
@@ -641,9 +584,11 @@ export default function Home() {
                 key={index}
                 className="gallery-item"
               >
-                <img
+                <Image
                   src={`/gallery/${image.src}`}
                   alt={image.title}
+                  width={500}
+                  height={300}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -672,380 +617,58 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="terminal-window">
-            <div className="text-center mb-4">
-              <pre className="ascii-art text-base">
+            <div className="text-center">
+              <pre className="ascii-art">
                 {ASCII_ART}
               </pre>
-              <p className="text-gray-700 text-lg">
+              <p className="text-gray-700 text-sm mb-2">
                 Type <span className="text-pink-500 font-semibold">help</span> to get started
               </p>
             </div>
             
             <div className="content-container" ref={contentContainerRef}>
-              {history.map((item, index) => (
-                <div key={index} className="command-output">
-                  <div className="terminal-prompt text-base">
-                    <span>visitor</span>
-                    <span className="text-gray-400">@</span>
-                    <span>portfolio</span>
-                    <span className="text-gray-400">:</span>
-                    <span className="text-pink-500">~$</span>
-                    <span className="ml-2 text-gray-700">{item.command}</span>
+              <div className="terminal-content">
+                {history.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="terminal-prompt text-sm">
+                      <span>visitor</span>
+                      <span className="text-gray-400">@</span>
+                      <span>jadiha-aruleswaran</span>
+                      <span className="text-gray-400">:</span>
+                      <span className="text-pink-500">~$</span>
+                      <span className="ml-2 text-gray-700">{item.command}</span>
+                    </div>
+                    <div className="mt-1">
+                      {item.output}
+                    </div>
                   </div>
-                  <div className="mt-2 text-base">
-                    {item.output}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
               
-              <div className="terminal-prompt text-base">
-                <span>visitor</span>
-                <span className="text-gray-400">@</span>
-                <span>portfolio</span>
-                <span className="text-gray-400">:</span>
-                <span className="text-pink-500">~$</span>
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  className="ml-2 bg-transparent outline-none flex-1 text-base"
-                  autoFocus
-                  disabled={isTyping}
-                  placeholder="Type a command..."
-                />
+              <div className="terminal-input">
+                <div className="terminal-prompt text-sm">
+                  <span>visitor</span>
+                  <span className="text-gray-400">@</span>
+                  <span>jadiha-aruleswaran</span>
+                  <span className="text-gray-400">:</span>
+                  <span className="text-pink-500">~$</span>
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="ml-2 bg-transparent outline-none flex-1 text-sm"
+                    autoFocus
+                    placeholder="Type a command..."
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section Overlay */}
-      <div 
-        className={`section-overlay fixed inset-0 z-[45] flex items-center justify-center bg-white/80 backdrop-blur-sm transition-all duration-300`}
-        style={{ 
-          opacity: showSection ? 1 : 0,
-          pointerEvents: showSection ? 'auto' : 'none',
-        }}
-      >
-        <div className="w-full max-w-6xl p-6 relative">
-          <motion.button
-            className="absolute top-4 right-4 text-gray-500 hover:text-pink-500 transition-colors"
-            onClick={handleCloseSection}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <span className="text-2xl">×</span>
-          </motion.button>
-
-          {/* Section Content */}
-          <div 
-            ref={(el) => {
-              if (el) {
-                sectionRefs.current[activeSection] = el;
-              }
-            }}
-            className="overflow-y-auto max-h-[80vh] pr-4"
-          >
-            {/* About Section */}
-            {activeSection === 'about' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="section-content"
-              >
-                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  About Me
-                </h2>
-                <div className="prose prose-pink">
-                  <div className="space-y-4">
-                    <p className="text-lg leading-relaxed">
-                      Systems Design Engineering student at the University of Waterloo, combining engineering principles with human-centered design thinking.
-                    </p>
-                    
-                    <div className="achievement-card">
-                      <h3 className="text-xl font-semibold mb-2">🎯 Focus Areas</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div className="flex items-start gap-2">
-                          <span>💫</span>
-                          <span>Full-stack Development</span>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <span>💫</span>
-                          <span>Systems Architecture</span>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <span>💫</span>
-                          <span>Human-Centered Design</span>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <span>💫</span>
-                          <span>Cloud & DevOps</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="achievement-card">
-                      <h3 className="text-xl font-semibold mb-2">🚀 Experience</h3>
-                      <p>Previously worked at:</p>
-                      <ul className="list-none space-y-1 mt-2">
-                        <li>• Amazon - Software Engineer Intern</li>
-                        <li>• Real Life Robotics - Full Stack Engineer Intern</li>
-                        <li>• MPAC - Software Engineer Intern</li>
-                        <li>• Home Trust Company - Software Engineer Intern</li>
-                      </ul>
-                    </div>
-
-                    <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg border border-pink-100">
-                      <p className="text-pink-500 font-medium text-lg">
-                        📧 Open to Winter 2024 opportunities!
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Skills Section */}
-            {activeSection === 'skills' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="section-content"
-              >
-                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  Technical Skills
-                </h2>
-                {Object.entries(SKILLS_DATA).map(([category, skills]) => (
-                  <div key={category} className="mb-8">
-                    <h3 className="text-2xl font-semibold mb-4 capitalize">{category}</h3>
-                    <div className="tech-stack-grid">
-                      {skills.map((skill) => (
-                        <div key={skill.name} className="tech-item">
-                          <span className="text-2xl mb-2">{skill.icon}</span>
-                          <span className="font-medium">{skill.name}</span>
-                          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                            <div
-                              className="bg-pink-500 rounded-full h-2"
-                              style={{ width: `${skill.level}%` }}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            )}
-
-            {/* Projects Section */}
-            {activeSection === 'projects' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="section-content"
-              >
-                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  Featured Projects
-                </h2>
-                <div className="project-grid">
-                  {PROJECTS_DATA.map((project, index) => (
-                    <motion.div
-                      key={project.title}
-                      className="project-card"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <img src={project.image} alt={project.title} className="project-image" />
-                      <div className="project-content">
-                        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                        <p className="text-gray-600 mb-4">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.tech.map((tech) => (
-                            <span key={tech} className="tech-tag">{tech}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* Experience Section */}
-            {activeSection === 'experience' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="section-content"
-              >
-                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  Work Experience
-                </h2>
-                <div className="space-y-8">
-                  {/* Amazon */}
-                  <div className="achievement-card">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-semibold">Amazon | Software Engineer Intern</h3>
-                      <span className="text-gray-600">May 2023 - Aug 2023</span>
-                    </div>
-                    <p className="text-gray-600 mb-3">Vancouver, BC</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Built real-time cron tracking visual interface for 70,000+ employees, enabling workflow planning.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Automated cron job display with Java & Ruby APIs, improving team scheduling efficiency by 35%.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Optimized core infrastructure, reducing scheduler failures by 65% and improving system uptime.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Real Life Robotics */}
-                  <div className="achievement-card">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-semibold">Real Life Robotics | Full Stack Engineer Intern</h3>
-                      <span className="text-gray-600">Sept 2024 - Dec 2024</span>
-                    </div>
-                    <p className="text-gray-600 mb-3">Toronto, ON</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Built NodeJS server for real-time robot-user communication, cutting response time by 50%.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Developed localization system with REST APIs, computer vision, eliminating manual tracking.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Improved robot delivery platform, fixing 50+ bugs and increasing task success by 75%.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* MPAC */}
-                  <div className="achievement-card">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-semibold">MPAC | Software Engineer Intern</h3>
-                      <span className="text-gray-600">Jan 2024 - April 2024</span>
-                    </div>
-                    <p className="text-gray-600 mb-3">Pickering, ON</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Implemented ReactJS AWS portal, automating service requests and cutting operational costs by 5x.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Optimized Python Boto3 automation for 25+ accounts, improving available cloud resources.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Secured infrastructure with SSL renewals and access key rotations, reducing maintenance by 30%.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Home Trust Company */}
-                  <div className="achievement-card">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-semibold">Home Trust Company | Software Engineer Intern</h3>
-                      <span className="text-gray-600">Jan 2023 - April 2023</span>
-                    </div>
-                    <p className="text-gray-600 mb-3">Toronto, ON</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Built automated loan processing with JavaScript, NoSQL, reducing manual testing by 30%.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Executed zero-downtime migration, ensuring 100% accurate critical financial data transfers.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span>💫</span>
-                        <span>Enhanced loan processing with JavaScript, CodeceptJS, boosting defect detection by 40%.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Projects Section */}
-                  <div className="achievement-card border-l-purple-500">
-                    <h3 className="text-xl font-semibold mb-4">Featured Project: Timefly</h3>
-                    <div className="prose prose-pink">
-                      <p className="text-gray-600">
-                        A revolutionary time management application that helps students and professionals optimize their daily schedules.
-                      </p>
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        <span className="tech-tag">React Native</span>
-                        <span className="tech-tag">Firebase</span>
-                        <span className="tech-tag">Machine Learning</span>
-                        <span className="tech-tag">Node.js</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Contact Section */}
-            {activeSection === 'contact' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="section-content"
-              >
-                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  Get in Touch
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    <div className="achievement-card">
-                      <h3 className="text-xl font-semibold">📧 Email</h3>
-                      <p className="text-pink-500">jadiha.arul@gmail.com</p>
-                    </div>
-                    <div className="achievement-card">
-                      <h3 className="text-xl font-semibold">🌐 Social</h3>
-                      <div className="flex gap-4 mt-2">
-                        <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" 
-                           className="text-gray-600 hover:text-pink-500 transition-colors">LinkedIn</a>
-                        <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer"
-                           className="text-gray-600 hover:text-pink-500 transition-colors">GitHub</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="achievement-card">
-                    <h3 className="text-xl font-semibold mb-4">💌 Quick Message</h3>
-                    <p className="text-gray-600 mb-4">
-                      I'm always open to new opportunities and collaborations!
-                    </p>
-                    <div className="space-y-4">
-                      <a 
-                        href="mailto:jadiha.arul@gmail.com"
-                        className="inline-block px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
-                      >
-                        Send Email
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </div>
-      </div>
+      {/* Section Overlay - Removed for deployment */}
 
       {/* Spacer to control scroll range */}
       <div style={{ height: `${Math.max(350, GALLERY_IMAGES.length * 60)}vh` }} />

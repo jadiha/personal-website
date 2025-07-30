@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const GALLERY_IMAGES = [
   'amazon2.jpeg',
@@ -38,9 +39,11 @@ export default function GalleryPage() {
               className="aspect-[4/3] group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
               onClick={() => setSelectedImage(image)}
             >
-              <img
+              <Image
                 src={`/gallery/${image}`}
                 alt={`Gallery image ${index + 1}`}
+                width={400}
+                height={300}
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300" />
@@ -52,20 +55,22 @@ export default function GalleryPage() {
       {/* Image Modal */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative max-w-7xl max-h-[90vh]">
-            <img
+          <div className="relative max-w-4xl max-h-[90vh] p-4">
+            <Image
               src={`/gallery/${selectedImage}`}
-              alt="Selected image"
-              className="max-w-full max-h-[90vh] object-contain"
+              alt="Selected gallery image"
+              width={800}
+              height={600}
+              className="max-w-full max-h-full object-contain"
             />
             <button
-              className="absolute top-4 right-4 text-white text-xl hover:text-pink-500 transition-colors"
+              className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300"
               onClick={() => setSelectedImage(null)}
             >
-              ✕
+              ×
             </button>
           </div>
         </div>

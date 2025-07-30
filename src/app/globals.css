@@ -146,7 +146,8 @@ section {
     0 24px 40px rgba(0, 0, 0, 0.1),
     0 8px 16px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(12px);
-  padding: 2.5rem;
+  padding: 2rem;
+  padding-top: 4rem;
   transition: all 0.3s ease;
   height: 80vh;
   width: 100%;
@@ -164,8 +165,8 @@ section {
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;
-  background: rgba(219, 112, 147, 0.1);
+  height: 60px;
+  background: rgba(219, 112, 147, 0.15);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   border-bottom: 1px solid rgba(219, 112, 147, 0.1);
@@ -174,22 +175,41 @@ section {
 .terminal-window::after {
   content: '⚫️ ⚫️ ⚫️';
   position: absolute;
-  top: 12px;
-  left: 16px;
-  font-size: 12px;
-  letter-spacing: 6px;
+  top: 20px;
+  left: 24px;
+  font-size: 14px;
+  letter-spacing: 8px;
 }
 
 .content-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  padding: 1rem 1.5rem;
-  margin: 1rem 0;
+  padding: 0.5rem 1.5rem;
+  margin-top: 0;
   color: #4a4a4a;
   font-family: 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
   font-size: 0.85rem;
   line-height: 1.4;
   scroll-behavior: smooth;
+}
+
+.terminal-content {
+  flex: 1;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+
+.terminal-input {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(219, 112, 147, 0.1);
+  background: rgba(252, 252, 252, 0.95);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
 
 /* Command styling */
@@ -271,7 +291,8 @@ input::placeholder {
   line-height: 1;
   text-align: center;
   color: #db7093;
-  margin: 0.375rem 0 0.75rem 0;
+  margin: 0;
+  margin-bottom: 0.5rem;
   opacity: 0.9;
   transform: scale(0.8);
   transform-origin: center;
