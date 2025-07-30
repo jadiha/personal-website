@@ -334,21 +334,22 @@ export default function Home() {
       case 'projects':
         output = (
           <div className="mb-2 command-output">
-            <p className="mb-2 sparkle">✨ Featured Projects ✨</p>
             <div className="ml-4 space-y-3">
               <div>
-                <p className="cute-bullet">Cute Terminal Website</p>
-                <p className="ml-4">Interactive terminal-style portfolio with a kawaii twist! 🎀</p>
+                <p className="text-pink-500 font-medium">🧠 EEG Brain Activity Analysis</p>
+                <p className="ml-4">Applied FFT to analyze alpha waves (8-13 Hz) from EEG data, enabling real-time brain-computer interface applications</p>
               </div>
               <div>
-                <p className="cute-bullet">Last-Mile Delivery Robot</p>
-                <p className="ml-4">Autonomous delivery robot system (but make it cute!) 🤖💕</p>
+                <p className="text-pink-500 font-medium">📄 AI Resume Optimizer</p>
+                <p className="ml-4">Built AI-powered tool that parses PDF resumes, analyzes job descriptions, and optimizes content with formatting preservation</p>
               </div>
               <div>
-                <p className="cute-bullet">More coming soon!</p>
-                <p className="ml-4">Stay tuned for more magical projects! ✨</p>
+                <p className="text-pink-500 font-medium">💻 Interactive Portfolio Website</p>
+                <p className="ml-4">Developed terminal-style portfolio with React, TypeScript, and Framer Motion animations</p>
               </div>
             </div>
+            <br></br>
+            <p className="mt-3 text-gray-500">And many more available on my <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
           </div>
         );
         break;
