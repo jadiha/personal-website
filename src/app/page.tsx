@@ -24,12 +24,12 @@ const COMMANDS = [
 ];
 
 const ASCII_ART = `
-     ██╗ █████╗ ██████╗ ██╗██╗  ██╗ █████╗     █████╗ ██████╗ ██╗   ██╗██╗     
-     ██║██╔══██╗██╔══██╗██║██║  ██║██╔══██╗    ██╔══██╗██╔══██╗██║   ██║██║     
-     ██║███████║██║  ██║██║███████║███████║    ███████║██████╔╝██║   ██║██║     
-██   ██║██╔══██║██║  ██║██║██╔══██║██╔══██║    ██╔══██║██╔══██╗██║   ██║██║     
-╚█████╔╝██║  ██║██████╔╝██║██║  ██║██║  ██║    ██║  ██║██║  ██║╚██████╔╝███████╗
- ╚════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+     ██╗ █████╗ ██████╗ ██╗██╗  ██╗ █████╗     
+     ██║██╔══██╗██╔══██╗██║██║  ██║██╔══██╗     
+     ██║███████║██║  ██║██║███████║███████║     
+██   ██║██╔══██║██║  ██║██║██╔══██║██╔══██║     
+╚█████╔╝██║  ██║██████╔╝██║██║  ██║██║  ██║     
+ ╚════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝     
 `;
 
 const GALLERY_IMAGES = [
@@ -129,7 +129,7 @@ export default function Home() {
   // Simplified visibility calculations
   const welcomeOpacity = Math.max(0, 1 - scrollProgress / 25);
   const terminalVisible = scrollProgress > 60;
-  // const headerVisible = scrollProgress > 30;
+  const headerVisible = scrollProgress > 30;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -440,49 +440,36 @@ export default function Home() {
 
   return (
     <main className="relative">
-      {/* Navigation Header - Commented out for deployment */}
-      {/*
+      {/* Navigation Header - Simplified for deployment */}
       <header 
         className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
           headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
         }`}
       >
         <nav className="bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
+          <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
               <div className="flex items-center">
                 <motion.span 
-                  className="header-name cursor-pointer"
+                  className="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => handleCloseSection()}
                 >
                   Jadiha Aruleswaran
                 </motion.span>
               </div>
-              <div className="hidden sm:flex sm:items-center sm:space-x-8">
-                {NAVIGATION_ITEMS.map((item) => (
-                  <motion.button
-                    key={item.label}
-                    onClick={() => handleNavClick(item.label.toLowerCase())}
-                    className={`nav-item flex items-center gap-2 ${
-                      // activeSection === item.label.toLowerCase()
-                      //   ? 'text-pink-500'
-                      //   : 'text-gray-600'
-                    }`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>{item.icon}</span>
-                    {item.label}
-                  </motion.button>
-                ))}
+              <div className="flex items-center">
+                <a 
+                  href="/contact"
+                  className="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent hover:from-pink-600 hover:to-purple-600 transition-all duration-300 cursor-pointer"
+                >
+                  Contact
+                </a>
               </div>
             </div>
           </div>
         </nav>
       </header>
-      */}
 
       {/* Welcome Section */}
       <section 
@@ -633,7 +620,7 @@ export default function Home() {
                     <div className="terminal-prompt text-sm">
                       <span>visitor</span>
                       <span className="text-gray-400">@</span>
-                      <span>jadiha-aruleswaran</span>
+                      <span>jadiha</span>
                       <span className="text-gray-400">:</span>
                       <span className="text-pink-500">~$</span>
                       <span className="ml-2 text-gray-700">{item.command}</span>
@@ -649,7 +636,7 @@ export default function Home() {
                 <div className="terminal-prompt text-sm">
                   <span>visitor</span>
                   <span className="text-gray-400">@</span>
-                  <span>jadiha-aruleswaran</span>
+                  <span>jadiha</span>
                   <span className="text-gray-400">:</span>
                   <span className="text-pink-500">~$</span>
                   <input
