@@ -250,19 +250,37 @@ export default function Home() {
       case 'experience':
         output = (
           <div className="command-output">
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <p className="text-pink-500 font-medium">Amazon | Software Engineer Intern</p>
-                <p className="text-gray-600 ml-4">• Built real-time cron tracking interface</p>
-                <p className="text-gray-600 ml-4">• Improved system uptime by 65%</p>
+                <p className="text-pink-500 font-medium">💰 Wealthsimple | Software Engineer Intern</p>
+                <p className="text-gray-500 text-sm ml-4">May 2025 - Present · Toronto, Ontario, Canada</p>
+                <p className="text-gray-600 ml-4">• Implemented features such as TFSA account linking for margin trading, contributing to $60K daily revenue and $20M annual revenue</p>
               </div>
+              
               <div>
-                <p className="text-pink-500 font-medium">Real Life Robotics | Full Stack Engineer</p>
-                <p className="text-gray-600 ml-4">• Built real-time robot communication system</p>
-                <p className="text-gray-600 ml-4">• Improved task success rate by 75%</p>
+                <p className="text-pink-500 font-medium">🤖 Real Life Robotics | Full Stack Developer</p>
+                <p className="text-gray-500 text-sm ml-4">Sep 2024 - Dec 2024 · Toronto, Ontario, Canada</p>
+                <p className="text-gray-600 ml-4">• Developed real-time robot communication system for BUBs delivery robot, enabling 100+ successful deliveries at Toronto Zoo</p>
+              </div>
+              
+              <div>
+                <p className="text-pink-500 font-medium">☁️ Municipal Property Assessment Corporation | Cloud Infrastructure Analyst</p>
+                <p className="text-gray-500 text-sm ml-4">Jan 2024 - Apr 2024 · Pickering, Ontario, Canada</p>
+                <p className="text-gray-600 ml-4">• Managed cloud infrastructure operations using Python Boto3 and React.js, processing $10K+ in data assets</p>
+              </div>
+              
+              <div>
+                <p className="text-pink-500 font-medium">⏰ Amazon | Software Development Engineer Intern</p>
+                <p className="text-gray-500 text-sm ml-4">May 2023 - Aug 2023 · Vancouver, British Columbia, Canada</p>
+                <p className="text-gray-600 ml-4">• Built real-time cron tracking interface, improving system uptime by 65% for 70,000+ employees</p>
+              </div>
+              
+              <div>
+                <p className="text-pink-500 font-medium">🏦 Home Trust Company | QA Automation Analyst</p>
+                <p className="text-gray-500 text-sm ml-4">Jan 2023 - Apr 2023 · Toronto, Ontario, Canada</p>
+                <p className="text-gray-600 ml-4">• Automated digital banking QA processes using CodeceptJS and Postman API, reducing testing time by 40%</p>
               </div>
             </div>
-            <p className="mt-2 text-gray-500">Type &apos;about&apos; for more info or click Experience in header</p>
           </div>
         );
         break;
