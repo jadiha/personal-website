@@ -54,7 +54,7 @@ export default function Contact() {
                 <span className="text-2xl">📍</span>
                 <div>
                   <p className="font-medium text-gray-800">Location</p>
-                  <p className="text-gray-600">Waterloo, Ontario, Canada</p>
+                  <p className="text-gray-600">Waterloo, Ontario</p>
                 </div>
               </div>
 
@@ -129,10 +129,10 @@ export default function Contact() {
           className="mt-8 text-center p-6 bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl"
         >
           <h3 className="text-xl font-semibold text-gray-800 mb-2">
-            Open to Winter 2026 Opportunities! 🚀
+            Open to Winter 2026 Internship Opportunities!
           </h3>
           <p className="text-gray-600">
-            I&apos;m actively seeking internship and full-time opportunities in software development, 
+            I&apos;m actively seeking roles in software development, 
             product management, and systems design.
           </p>
         </motion.div>
