@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Contact() {
   return (
@@ -41,12 +41,12 @@ export default function Contact() {
                 <span className="text-2xl">📧</span>
                 <div>
                   <p className="font-medium text-gray-800">Email</p>
-                  <a 
+                  <Link 
                     href="mailto:jadiha.arul@gmail.com"
                     className="text-pink-600 hover:text-pink-700 transition-colors"
                   >
                     jadiha.arul@gmail.com
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -78,7 +78,7 @@ export default function Contact() {
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">🌐 Social Links</h2>
             
             <div className="space-y-4">
-              <a 
+              <Link 
                 href="https://www.linkedin.com/in/jadiha-aruleswaran/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -89,9 +89,9 @@ export default function Contact() {
                   <p className="font-medium text-gray-800">LinkedIn</p>
                   <p className="text-blue-600">Connect with me</p>
                 </div>
-              </a>
+              </Link>
 
-              <a 
+              <Link 
                 href="https://github.com/jadiha"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -102,19 +102,19 @@ export default function Contact() {
                   <p className="font-medium text-gray-800">GitHub</p>
                   <p className="text-gray-600">@jadiha</p>
                 </div>
-              </a>
+              </Link>
 
               <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
                 <span className="text-2xl">📄</span>
                 <div>
                   <p className="font-medium text-gray-800">Resume</p>
-                  <a 
+                  <Link 
                     href="/resume.pdf" 
                     download
                     className="text-green-600 hover:text-green-700 transition-colors"
                   >
                     Download PDF
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -144,13 +144,13 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-6 text-center"
         >
-          <a 
+          <Link 
             href="/"
             className="inline-flex items-center space-x-2 text-pink-600 hover:text-pink-700 transition-colors"
           >
             <span>←</span>
             <span>Back to Terminal</span>
-          </a>
+          </Link>
         </motion.div>
       </motion.div>
     </div>
