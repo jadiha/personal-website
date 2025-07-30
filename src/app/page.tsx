@@ -320,15 +320,17 @@ export default function Home() {
       case 'download':
         output = (
           <div className="mb-2 command-output">
-            <p>📄 Downloading resume...</p>
-            <p className="text-purple-400">
-              <a href="/resume.pdf" download className="hover:underline">
-                Click here if the download doesn&apos;t start automatically
-              </a>
-            </p>
+            <p className="text-gray-600 mb-3">Click the link below to download my resume:</p>
+            <a 
+              href="/resume.pdf" 
+              download="Jadiha_Aruleswaran_Resume.pdf"
+              className="inline-block bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+            >
+              📄 Download Resume (PDF)
+            </a>
+            <p className="text-gray-500 text-sm mt-2">If the download doesn&apos;t start automatically, right-click the link and select &quot;Save as&quot;</p>
           </div>
         );
-        // Add actual download logic here
         break;
 
       case 'projects':
