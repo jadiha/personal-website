@@ -373,7 +373,12 @@ export default function Home() {
 
       case 'clear':
         setHistory([]);
-        return;
+        output = (
+          <div className="text-gray-500 command-output">
+            Terminal cleared. Type &apos;help&apos; to see available commands.
+          </div>
+        );
+        break;
 
       default:
         output = (
