@@ -7,6 +7,7 @@
   --bg-secondary: #FFEEE6;  /* soft peach-pink */
   --bg-card:      #FFFFFF;
   --primary:      #FFB3C6;  /* pastel pink */
+  --secondary:    #FF9CAE;  /* alias for accents */
   --peach:        #FFCBA8;  /* warm peach */
   --rose:         #FF9CAE;  /* deeper rose */
   --butter:       #FFE8A3;  /* golden butter */
@@ -125,6 +126,7 @@ section {
   display: flex;
   flex-direction: column;
   position: relative;
+  scroll-snap-align: start; /* Add scroll snap */
 }
 
 .terminal-window::after {

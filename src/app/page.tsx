@@ -71,12 +71,25 @@ export default function Home() {
   const terminalOpacity = ramp(scrollProgress, 72, 80);
   const terminalVisible = scrollProgress > 72;
 
+<<<<<<< HEAD
+=======
+  // Simplified visibility calculations
+  const welcomeOpacity = Math.max(0, 1 - scrollProgress / 25);
+  const terminalVisible = scrollProgress > 60;
+  const headerVisible = terminalVisible; // Only show header when terminal is visible
+>>>>>>> d220740 (more website polishes)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY;
       const windowHeight = window.innerHeight;
+<<<<<<< HEAD
       targetProgressRef.current = (scrolled / (windowHeight * 2)) * 100;
+=======
+      // Smoother scroll progress calculation with more gradual transition
+      const progress = (scrolled / (windowHeight * 2.5)) * 100;
+      setScrollProgress(progress);
+>>>>>>> d220740 (more website polishes)
     };
 
     let current = 0;
@@ -623,6 +636,31 @@ export default function Home() {
             ))}
           </div>
         </div>
+        
+        {/* Keep scrolling dialogue - appears when near the last picture */}
+        {scrollProgress > 45 && scrollProgress < 60 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute bottom-8 left-0 right-0 flex justify-center bg-white/90 backdrop-blur-md rounded-lg px-6 py-4 shadow-lg border border-pink-200 z-10 mx-4"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">💻</span>
+              <div>
+                <p className="text-gray-800 font-medium">Keep scrolling to explore the terminal!</p>
+                <p className="text-gray-600 text-sm">Type commands and discover more about me</p>
+              </div>
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="text-pink-500 text-xl"
+              >
+                ↓
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
       </section>
 
       {/* Keep scrolling hint */}
