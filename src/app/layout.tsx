@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
@@ -22,6 +22,11 @@ const pressStart2P = Press_Start_2P({
 export const metadata: Metadata = {
   title: "Jadiha Arul - Software Engineer",
   description: "Full-stack developer with a passion for innovative solutions",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

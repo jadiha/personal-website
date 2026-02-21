@@ -43,77 +43,6 @@ const GALLERY_IMAGES = [
   { src: 'IMG-20240715-WA0005.jpg', title: 'Project Demo' }
 ];
 
-// Navigation items - Commented out for deployment
-/*
-const NAVIGATION_ITEMS = [
-  { label: 'About', href: '#about', icon: '👋' },
-  { label: 'Experience', href: '#experience', icon: '💼' },
-  { label: 'Projects', href: '#projects', icon: '🚀' },
-  { label: 'Skills', href: '#skills', icon: '💫' },
-  { label: 'Contact', href: '#contact', icon: '📬' }
-];
-
-const SKILLS_DATA = {
-  languages: [
-    { name: 'Python', level: 95, icon: '🐍', description: 'ML, Data Analysis, Backend' },
-    { name: 'TypeScript', level: 90, icon: '📘', description: 'Full-stack Development' },
-    { name: 'JavaScript', level: 90, icon: '💛', description: 'Web Development' },
-    { name: 'C++', level: 85, icon: '⚡', description: 'Systems Programming' },
-    { name: 'Ruby', level: 80, icon: '💎', description: 'Web Development' },
-    { name: 'Java', level: 75, icon: '☕', description: 'Backend Development' }
-  ],
-  frontend: [
-    { name: 'React.js', level: 95, icon: '⚛️', description: 'UI Development' },
-    { name: 'Next.js', level: 90, icon: '▲', description: 'Full-stack Framework' },
-    { name: 'Tailwind CSS', level: 90, icon: '🎨', description: 'Styling' },
-    { name: 'TypeScript', level: 85, icon: '🔷', description: 'Type Safety' },
-    { name: 'HTML/CSS', level: 85, icon: '🎯', description: 'Web Fundamentals' }
-  ],
-  backend: [
-    { name: 'Node.js', level: 90, icon: '🟢', description: 'Server Runtime' },
-    { name: 'Express.js', level: 85, icon: '🚂', description: 'Web Framework' },
-    { name: 'REST APIs', level: 85, icon: '🔌', description: 'API Design' },
-    { name: 'GraphQL', level: 80, icon: '📊', description: 'API Query Language' },
-    { name: 'ROS', level: 75, icon: '🤖', description: 'Robotics Framework' }
-  ],
-  databases: [
-    { name: 'PostgreSQL', level: 85, icon: '🐘', description: 'Relational DB' },
-    { name: 'MongoDB', level: 85, icon: '🍃', description: 'NoSQL DB' },
-    { name: 'Redis', level: 80, icon: '⚡', description: 'In-memory Cache' },
-    { name: 'Firebase', level: 80, icon: '🔥', description: 'Real-time DB' }
-  ],
-  cloud: [
-    { name: 'AWS', level: 85, icon: '☁️', description: 'Cloud Platform' },
-    { name: 'Docker', level: 80, icon: '🐳', description: 'Containerization' },
-    { name: 'Git', level: 90, icon: '📚', description: 'Version Control' },
-    { name: 'CI/CD', level: 85, icon: '🔄', description: 'Automation' }
-  ],
-  tools: [
-    { name: 'VS Code', level: 90, icon: '💻', description: 'IDE' },
-    { name: 'Postman', level: 85, icon: '📬', description: 'API Testing' },
-    { name: 'Jira', level: 85, icon: '📋', description: 'Project Management' },
-    { name: 'Figma', level: 80, icon: '🎨', description: 'UI/UX Design' }
-  ]
-};
-
-const PROJECTS_DATA = [
-  {
-    title: 'Last-Mile Delivery Robot',
-    description: 'Autonomous delivery robot system using ROS and computer vision',
-    image: '/projects/robot.jpg',
-    tech: ['ROS', 'Python', 'Computer Vision', 'Navigation'],
-    link: 'https://github.com/yourusername/robot-project'
-  },
-  {
-    title: 'Interactive Portfolio',
-    description: 'Modern portfolio website with terminal interface and animations',
-    image: '/projects/portfolio.jpg',
-    tech: ['Next.js', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
-    link: 'https://github.com/yourusername/portfolio'
-  },
-  // Add more projects...
-];
-*/
 
 export default function Home() {
   const [input, setInput] = useState('');
@@ -122,9 +51,6 @@ export default function Home() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [scrollProgress, setScrollProgress] = useState(0);
   const contentContainerRef = useRef<HTMLDivElement>(null);
-  // const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
-  // const [activeSection, setActiveSection] = useState<string>('terminal');
-  // const [showSection, setShowSection] = useState(false);
 
   // Simplified visibility calculations
   const welcomeOpacity = Math.max(0, 1 - scrollProgress / 25);
@@ -167,7 +93,7 @@ export default function Home() {
       case 'help':
         output = (
           <div className="command-output">
-            <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5 text-sm">
               {[
                 ['about', '👋 Learn about me'],
                 ['experience', '💼 View my work experience'],
@@ -191,7 +117,7 @@ export default function Home() {
       case 'skills':
         output = (
           <div className="command-output">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className="text-pink-500 font-medium mb-1">Languages</p>
                 <p className="text-gray-600">Python, Javascript,TypeScript, C++, Ruby, Java</p>
@@ -227,7 +153,7 @@ export default function Home() {
                   Always looking for opportunities to make a positive difference in the tech space!
                 </p>
               </div>
-              <div className="grid grid-cols-2 gap-4 mt-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
                 <div>
                   <p className="text-pink-500 font-medium">🎯 Focus Areas</p>
                   <p className="text-gray-600 ml-4">• Software Development</p>
@@ -289,7 +215,7 @@ export default function Home() {
         output = (
           <div className="command-output">
             <p className="text-pink-500 font-medium mb-3">📬 Contact & Social Links</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className="text-gray-600 font-medium">Email</p>
                 <p className="text-pink-400">jadiha.arul@gmail.com</p>
@@ -428,41 +354,6 @@ export default function Home() {
     handleCommand('help');
   }, []);
 
-  // Update navigation click handler - Commented out for deployment
-  /*
-  const handleNavClick = (section: string) => {
-    setActiveSection(section);
-    setShowSection(true);
-
-    // Hide terminal when showing sections
-    const terminalSection = document.querySelector('.terminal-section') as HTMLElement;
-    if (terminalSection) {
-      terminalSection.style.opacity = '0';
-      terminalSection.style.pointerEvents = 'none';
-    }
-
-    // Show overlay with content
-    requestAnimationFrame(() => {
-      const overlay = document.querySelector('.section-overlay') as HTMLElement;
-      if (overlay) {
-        overlay.style.opacity = '1';
-        overlay.style.pointerEvents = 'auto';
-      }
-    });
-  };
-
-  // Handle closing sections
-  const handleCloseSection = () => {
-    setShowSection(false);
-    
-    // Show terminal again
-    const terminalSection = document.querySelector('.terminal-section') as HTMLElement;
-    if (terminalSection) {
-      terminalSection.style.opacity = '1';
-      terminalSection.style.pointerEvents = 'auto';
-    }
-  };
-  */
 
   return (
     <main className="relative">
@@ -545,7 +436,7 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-6xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-6"
           >
             Welcome to My World
           </motion.h1>
@@ -553,7 +444,7 @@ export default function Home() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-2xl text-gray-600 mb-12"
+            className="text-lg sm:text-2xl text-gray-600 mb-12"
           >
             Scroll to begin the journey
           </motion.p>
@@ -680,8 +571,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Section Overlay - Removed for deployment */}
 
       {/* Spacer to control scroll range */}
       <div style={{ height: `${Math.max(350, GALLERY_IMAGES.length * 60)}vh` }} />

@@ -7,7 +7,6 @@ import Image from 'next/image';
 const GALLERY_IMAGES = [
   'amazon2.jpeg',
   'Ambassadors.jpeg',
-  'boxing.jpg',
   'DSC00227.JPG',
   'DSC03005.jpg',
   'DSC05871.JPG',

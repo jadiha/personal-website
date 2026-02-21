@@ -159,19 +159,6 @@ section {
   position: relative;
 }
 
-.terminal-window::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: rgba(219, 112, 147, 0.15);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  border-bottom: 1px solid rgba(219, 112, 147, 0.1);
-}
-
 .terminal-window::after {
   content: '⚫️ ⚫️ ⚫️';
   position: absolute;
@@ -855,5 +842,65 @@ a:hover::before {
 
 .header-name:hover, .nav-item:hover {
   color: #db7093;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .ascii-art {
+    font-size: 0.35rem;
+    transform: scale(0.6);
+    transform-origin: center;
+    margin-bottom: 0;
+  }
+
+  .terminal-window {
+    height: 88vh;
+    padding: 0.75rem;
+    padding-top: 3.5rem;
+    border-radius: 8px;
+  }
+
+  .terminal-window::after {
+    top: 14px;
+    left: 14px;
+    font-size: 11px;
+    letter-spacing: 5px;
+  }
+
+  .content-container {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .terminal-prompt {
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .gallery-item {
+    flex: 0 0 260px;
+    height: 200px;
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .gallery-section {
+    display: none;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .terminal-window {
+    height: 82vh;
+    padding: 1.5rem;
+    padding-top: 4rem;
+  }
+
+  .gallery-item {
+    flex: 0 0 360px;
+    height: 280px;
+  }
 }
 
