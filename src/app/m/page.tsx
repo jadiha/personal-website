@@ -520,7 +520,7 @@ export default function MobilePage() {
                 onTouchStart={e => (e.currentTarget.style.background = 'rgba(255,179,198,0.35)')}
                 onTouchEnd={e => (e.currentTarget.style.background = 'rgba(255,246,243,0.7)')}
               >
-                <span style={{ fontSize: '1rem', lineHeight: 1 }}>{emoji}</span>
+                <span style={{ fontSize: '0.8rem', lineHeight: 1 }}>{emoji}</span>
                 <span style={{ fontSize: '0.42rem', color: 'var(--text-muted)', fontFamily: 'var(--font-press-start)', lineHeight: 1 }}>{cmd}</span>
               </button>
             ))}
@@ -529,6 +529,7 @@ export default function MobilePage() {
       </section>
 
       <style>{`
+        html, body { background: linear-gradient(to bottom, #4AAEDE, #6EC6E8, #C0EAF8, #3A9A3A) !important; }
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
           50%       { transform: translateY(-10px); }
