@@ -23,6 +23,7 @@ export default function MobilePage() {
   const [history, setHistory] = useState<CommandHistory[]>([]);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [showKeepScrolling, setShowKeepScrolling] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
   const skyCanvasRef = useRef<HTMLCanvasElement>(null);
   const terminalContentRef = useRef<HTMLDivElement>(null);
   const lastItemRef = useRef<HTMLDivElement>(null);
@@ -241,6 +242,14 @@ export default function MobilePage() {
 
     setHistory(prev => [...prev, { command, output }]);
   };
+
+  // Detect landscape orientation
+  useEffect(() => {
+    const check = () => setIsLandscape(window.innerWidth > window.innerHeight);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   // Show "keep scrolling" only while on terminal section, hide once gallery is fully visible
   useEffect(() => {
@@ -562,6 +571,37 @@ export default function MobilePage() {
           <button onClick={() => setGalleryIndex(i => Math.min(GALLERY_IMAGES.length-1, i+1))} disabled={galleryIndex === GALLERY_IMAGES.length-1} style={navBtn(galleryIndex === GALLERY_IMAGES.length-1)}>→</button>
         </div>
       </section>
+
+      {/* Landscape overlay */}
+      {isLandscape && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'linear-gradient(160deg, #4AAEDE, #6EC6E8, #C0EAF8)',
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          gap: '1.5rem',
+          textAlign: 'center',
+          padding: '2rem',
+        }}>
+          <span style={{ fontSize: '3rem' }}>🔄</span>
+          <p style={{
+            fontFamily: 'var(--font-press-start)',
+            fontSize: '0.6rem',
+            color: '#FFFFFF',
+            lineHeight: 2.2,
+            textShadow: '0 0 10px rgba(255,179,198,0.9)',
+          }}>
+            please rotate<br />your device
+          </p>
+          <p style={{
+            fontFamily: 'ui-monospace, monospace',
+            fontSize: '0.75rem',
+            color: 'rgba(255,255,255,0.8)',
+          }}>
+            this site is best viewed vertically ✿
+          </p>
+        </div>
+      )}
 
       <style>{`
         html, body { background: linear-gradient(to bottom, #4AAEDE, #6EC6E8, #C0EAF8, #3A9A3A) !important; }
