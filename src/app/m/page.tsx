@@ -604,15 +604,8 @@ export default function MobilePage() {
       )}
 
       <style>{`
-        html {
-          min-height: 100%;
-          background: linear-gradient(to bottom, #4AAEDE, #6EC6E8, #C0EAF8, #3A9A3A) !important;
-          background-attachment: fixed !important;
-        }
-        body {
-          min-height: 100%;
-          background: transparent !important;
-        }
+        html { background: #3A9A3A !important; }
+        body { background: transparent !important; }
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
           50%       { transform: translateY(-10px); }
