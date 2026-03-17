@@ -524,7 +524,7 @@ export default function Home() {
                 }}
                 className="absolute top-0 right-0 origin-bottom-left"
               >
-                <span className="text-4xl">👋</span>
+                <span className="text-4xl">👋🏽</span>
               </motion.div>
             </div>
           </motion.div>

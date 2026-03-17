@@ -311,7 +311,7 @@ export default function MobilePage() {
             animation: 'wave 2s ease-in-out infinite',
             transformOrigin: 'bottom left',
             display: 'inline-block',
-          }}>👋</span>
+          }}>👋🏽</span>
         </div>
 
         {/* Name */}
