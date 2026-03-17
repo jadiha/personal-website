@@ -451,7 +451,23 @@ export default function MobilePage() {
         position: 'relative', zIndex: 10,
         padding: '0.75rem',
       }}>
-        <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '90svh', padding: '1rem', paddingTop: '3rem', display: 'flex', flexDirection: 'column' }}>
+        <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '90svh', padding: '1rem', paddingTop: '3rem', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+
+          {/* Name header */}
+          <div style={{ textAlign: 'center', marginBottom: '0.75rem', flexShrink: 0 }}>
+            <p style={{
+              fontFamily: 'var(--font-press-start)',
+              fontSize: '0.6rem',
+              color: 'var(--rose)',
+              letterSpacing: '0.05em',
+              lineHeight: 2,
+            }}>
+              jadiha aruleswaran
+            </p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '0.1rem' }}>
+              tap a command below ✿
+            </p>
+          </div>
 
           {/* Output area */}
           <div
@@ -465,11 +481,7 @@ export default function MobilePage() {
               paddingBottom: '0.5rem',
             }}
           >
-            {history.length === 0 && (
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', marginTop: '2rem' }}>
-                tap a command below ✿
-              </p>
-            )}
+
             {history.map((item, index) => (
               <div key={index} style={{ marginBottom: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '0.25rem' }}>
