@@ -103,22 +103,7 @@ export default function MobilePage() {
       case 'help':
         output = (
           <div className="command-output">
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '0.5rem' }}>tap any button below to explore ✿</p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.25rem 1rem' }}>
-              {[
-                ['about', '👋 About me'],
-                ['experience', '💼 Work history'],
-                ['skills', '💫 Tech skills'],
-                ['projects', '🚀 Projects'],
-                ['socials', '📬 Contact'],
-                ['download', '📄 Resume'],
-              ].map(([c, desc]) => (
-                <div key={c} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <span style={{ color: 'var(--rose)', fontWeight: 600, fontSize: '0.8rem', minWidth: 60 }}>{c}</span>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{desc.split(' ').slice(1).join(' ')}</span>
-                </div>
-              ))}
-            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>tap any button below to explore ✿</p>
           </div>
         );
         break;
@@ -495,11 +480,12 @@ export default function MobilePage() {
 
           {/* Command buttons */}
           <div style={{
+            flexShrink: 0,
             borderTop: '2px solid var(--border)',
-            paddingTop: '0.75rem',
+            paddingTop: '0.5rem',
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '0.5rem',
+            gap: '0.35rem',
           }}>
             {[
               { cmd: 'about',      emoji: '👋' },
@@ -517,23 +503,22 @@ export default function MobilePage() {
                 style={{
                   background: 'rgba(255,246,243,0.7)',
                   border: '2px solid var(--border)',
-                  borderRadius: 10,
-                  padding: '0.5rem 0.25rem',
+                  borderRadius: 8,
+                  padding: '0.35rem 0.1rem',
                   cursor: 'pointer',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '0.2rem',
+                  gap: '0.15rem',
                   transition: 'all 0.15s ease',
                   backdropFilter: 'blur(6px)',
                   WebkitBackdropFilter: 'blur(6px)',
-                  fontFamily: 'ui-monospace, monospace',
                 }}
                 onTouchStart={e => (e.currentTarget.style.background = 'rgba(255,179,198,0.35)')}
                 onTouchEnd={e => (e.currentTarget.style.background = 'rgba(255,246,243,0.7)')}
               >
-                <span style={{ fontSize: '1.1rem' }}>{emoji}</span>
-                <span style={{ fontSize: '0.55rem', color: 'var(--text-muted)', fontFamily: 'var(--font-press-start)' }}>{cmd}</span>
+                <span style={{ fontSize: '1rem', lineHeight: 1 }}>{emoji}</span>
+                <span style={{ fontSize: '0.42rem', color: 'var(--text-muted)', fontFamily: 'var(--font-press-start)', lineHeight: 1 }}>{cmd}</span>
               </button>
             ))}
           </div>
