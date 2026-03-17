@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Press_Start_2P } from "next/font/google";
+import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,6 +17,8 @@ const pressStart2P = Press_Start_2P({
   subsets: ["latin"],
   variable: "--font-press-start",
 });
+
+
 
 export const metadata: Metadata = {
   title: "Jadiha Arul - Software Engineer",
