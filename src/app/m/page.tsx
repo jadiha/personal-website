@@ -29,28 +29,30 @@ export default function MobilePage() {
   const terminalContentRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
 
-  // Draw static pixel sky
+  // Draw static pixel sky — portrait orientation (180×320)
   useEffect(() => {
     const canvas = skyCanvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const W = 320;
+    const W = 180, H = 320;
 
+    // Sky bands — tall portrait layout
     const bands: [number, number, string][] = [
-      [0, 50, '#4AAEDE'],
-      [50, 40, '#6EC6E8'],
-      [90, 35, '#96D9F0'],
-      [125, 19, '#C0EAF8'],
+      [0,   90, '#4AAEDE'],
+      [90,  70, '#6EC6E8'],
+      [160, 60, '#96D9F0'],
+      [220, 40, '#C0EAF8'],
     ];
     bands.forEach(([y, h, color]) => {
       ctx.fillStyle = color;
       ctx.fillRect(0, y, W, h);
     });
 
-    ctx.fillStyle = '#3A9A3A'; ctx.fillRect(0, 144, W, 36);
-    ctx.fillStyle = '#5DBF5D'; ctx.fillRect(0, 144, W, 5);
-    ctx.fillStyle = '#80D480'; ctx.fillRect(0, 142, W, 3);
+    // Ground
+    ctx.fillStyle = '#3A9A3A'; ctx.fillRect(0, H - 36, W, 36);
+    ctx.fillStyle = '#5DBF5D'; ctx.fillRect(0, H - 36, W, 5);
+    ctx.fillStyle = '#80D480'; ctx.fillRect(0, H - 38, W, 3);
 
     const cloud = (x: number, y: number, s: number) => {
       s = Math.round(s);
@@ -61,22 +63,32 @@ export default function MobilePage() {
       ctx.fillStyle = '#CCE8F5';
       ctx.fillRect(x,       y + s*5, s*8, s);
     };
-    cloud(60, 18, 2.5); cloud(210, 8, 2);
-    cloud(130, 5, 3);   cloud(40, 10, 4);
+    // Spread clouds through the taller sky
+    cloud(10,  20, 2.5);
+    cloud(100, 10, 2);
+    cloud(50,  80, 3);
+    cloud(120, 60, 2);
+    cloud(20, 140, 2.5);
+    cloud(100,130, 2);
 
+    // Flowers along grass line
     const flowerColors = ['#FF9CAE', '#FFE566', '#FFFFFF', '#FFD9E4', '#FFCBA8'];
-    [12,38,60,85,110,135,158,185,210,238,262,288,308].forEach((fx, i) => {
-      ctx.fillStyle = '#FFEE88'; ctx.fillRect(fx, 139, 2, 2);
+    [8, 22, 38, 55, 72, 90, 108, 125, 142, 158, 170].forEach((fx, i) => {
+      const fy = H - 41;
+      ctx.fillStyle = '#FFEE88'; ctx.fillRect(fx, fy, 2, 2);
       ctx.fillStyle = flowerColors[i % flowerColors.length];
-      ctx.fillRect(fx-2, 139, 2, 2); ctx.fillRect(fx+2, 139, 2, 2);
-      ctx.fillRect(fx, 137, 2, 2);   ctx.fillRect(fx, 141, 2, 2);
+      ctx.fillRect(fx-2, fy, 2, 2); ctx.fillRect(fx+2, fy, 2, 2);
+      ctx.fillRect(fx, fy-2, 2, 2); ctx.fillRect(fx, fy+2, 2, 2);
     });
 
-    ctx.fillStyle = '#FFE566'; ctx.fillRect(W-34, 5, 20, 20);
-    ctx.fillStyle = '#FFD700'; ctx.fillRect(W-32, 7, 16, 16);
+    // Sun top-right
+    ctx.fillStyle = '#FFE566'; ctx.fillRect(W - 26, 8, 16, 16);
+    ctx.fillStyle = '#FFD700'; ctx.fillRect(W - 24, 10, 12, 12);
     ctx.fillStyle = '#FFE566';
-    ctx.fillRect(W-27, 1, 6, 3); ctx.fillRect(W-27, 26, 6, 3);
-    ctx.fillRect(W-38, 13, 3, 6); ctx.fillRect(W-15, 13, 3, 6);
+    ctx.fillRect(W - 20, 4,  4, 3);
+    ctx.fillRect(W - 20, 25, 4, 3);
+    ctx.fillRect(W - 30, 14, 3, 4);
+    ctx.fillRect(W - 11, 14, 3, 4);
   }, []);
 
   // Auto-scroll terminal
@@ -317,8 +329,8 @@ export default function MobilePage() {
       {/* Fixed pixel sky */}
       <canvas
         ref={skyCanvasRef}
-        width={320}
-        height={180}
+        width={180}
+        height={320}
         style={{
           position: 'fixed', top: 0, left: 0,
           width: '100vw', height: '100vh',
@@ -471,9 +483,9 @@ export default function MobilePage() {
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
         position: 'relative', zIndex: 10,
-        padding: '1rem',
+        padding: '0.75rem',
       }}>
-        <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '82svh' }}>
+        <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '90svh', padding: '1rem', paddingTop: '3rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
             <p style={{ color: 'var(--text)', fontSize: '0.75rem' }}>
               Type <span style={{ color: 'var(--rose)', fontWeight: 600 }}>help</span> to get started
