@@ -351,94 +351,14 @@ export default function MobilePage() {
         }}>↓</div>
       </section>
 
-      {/* ── Section 2: Gallery ───────────────────────────────────── */}
-      <section style={{
-        minHeight: '100svh',
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        position: 'relative', zIndex: 10,
-        padding: '2rem 0',
-        background: 'linear-gradient(160deg, rgba(255,203,168,0.15) 0%, rgba(255,246,243,0.55) 50%, rgba(255,179,198,0.15) 100%)',
-      }}>
-        <h2 style={{
-          fontFamily: 'var(--font-press-start)',
-          fontSize: '0.55rem',
-          color: '#FFFFFF',
-          textShadow: '0 0 10px rgba(255,179,198,0.9)',
-          marginBottom: '1.5rem',
-          letterSpacing: '0.1em',
-        }}>
-          memories ✿
-        </h2>
-
-        {/* Carousel */}
-        <div
-          style={{ width: '100%', overflow: 'hidden', position: 'relative' }}
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-        >
-          <div style={{
-            display: 'flex',
-            transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-            transform: `translateX(-${galleryIndex * 100}%)`,
-          }}>
-            {GALLERY_IMAGES.map((img, i) => (
-              <div key={i} style={{ flex: '0 0 100%', padding: '0 1.25rem' }}>
-                <div style={{
-                  borderRadius: 12, overflow: 'hidden',
-                  border: '2px solid var(--border)',
-                  boxShadow: '0 8px 24px var(--shadow)',
-                  background: 'rgba(255,246,243,0.85)',
-                  backdropFilter: 'blur(8px)',
-                }}>
-                  <Image
-                    src={`/gallery/${img.src}`}
-                    alt={img.title}
-                    width={400} height={260}
-                    style={{ width: '100%', height: 230, objectFit: 'cover', display: 'block' }}
-                  />
-                  <p style={{
-                    fontFamily: 'var(--font-press-start)',
-                    fontSize: '0.42rem',
-                    color: 'var(--text-muted)',
-                    padding: '0.75rem 1rem',
-                    textAlign: 'center',
-                    letterSpacing: '0.05em',
-                    lineHeight: 1.8,
-                  }}>
-                    {img.title}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Dots */}
-        <div style={{ display: 'flex', gap: '0.4rem', marginTop: '1.25rem' }}>
-          {GALLERY_IMAGES.map((_, i) => (
-            <button key={i} onClick={() => setGalleryIndex(i)} style={dot(i === galleryIndex)} />
-          ))}
-        </div>
-
-        {/* Prev / count / Next */}
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', alignItems: 'center' }}>
-          <button onClick={() => setGalleryIndex(i => Math.max(0, i-1))} disabled={galleryIndex === 0} style={navBtn(galleryIndex === 0)}>←</button>
-          <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-            {galleryIndex + 1} / {GALLERY_IMAGES.length}
-          </span>
-          <button onClick={() => setGalleryIndex(i => Math.min(GALLERY_IMAGES.length-1, i+1))} disabled={galleryIndex === GALLERY_IMAGES.length-1} style={navBtn(galleryIndex === GALLERY_IMAGES.length-1)}>→</button>
-        </div>
-      </section>
-
-      {/* ── Section 3: Terminal ──────────────────────────────────── */}
+      {/* ── Section 2: Terminal ──────────────────────────────────── */}
       <section style={{
         minHeight: '100svh',
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'flex-start',
         position: 'relative', zIndex: 10,
         padding: '0.75rem',
-        paddingTop: '4svh',
+        paddingTop: '8svh',
       }}>
         <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '90svh', padding: '1rem', paddingTop: '3rem', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
@@ -526,6 +446,86 @@ export default function MobilePage() {
               </button>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Section 3: Gallery ───────────────────────────────────── */}
+      <section style={{
+        minHeight: '100svh',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        position: 'relative', zIndex: 10,
+        padding: '2rem 0',
+        background: 'linear-gradient(160deg, rgba(255,203,168,0.15) 0%, rgba(255,246,243,0.55) 50%, rgba(255,179,198,0.15) 100%)',
+      }}>
+        <h2 style={{
+          fontFamily: 'var(--font-press-start)',
+          fontSize: '0.55rem',
+          color: '#FFFFFF',
+          textShadow: '0 0 10px rgba(255,179,198,0.9)',
+          marginBottom: '1.5rem',
+          letterSpacing: '0.1em',
+        }}>
+          memories ✿
+        </h2>
+
+        {/* Carousel */}
+        <div
+          style={{ width: '100%', overflow: 'hidden', position: 'relative' }}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <div style={{
+            display: 'flex',
+            transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+            transform: `translateX(-${galleryIndex * 100}%)`,
+          }}>
+            {GALLERY_IMAGES.map((img, i) => (
+              <div key={i} style={{ flex: '0 0 100%', padding: '0 1.25rem' }}>
+                <div style={{
+                  borderRadius: 12, overflow: 'hidden',
+                  border: '2px solid var(--border)',
+                  boxShadow: '0 8px 24px var(--shadow)',
+                  background: 'rgba(255,246,243,0.85)',
+                  backdropFilter: 'blur(8px)',
+                }}>
+                  <Image
+                    src={`/gallery/${img.src}`}
+                    alt={img.title}
+                    width={400} height={260}
+                    style={{ width: '100%', height: 230, objectFit: 'cover', display: 'block' }}
+                  />
+                  <p style={{
+                    fontFamily: 'var(--font-press-start)',
+                    fontSize: '0.42rem',
+                    color: 'var(--text-muted)',
+                    padding: '0.75rem 1rem',
+                    textAlign: 'center',
+                    letterSpacing: '0.05em',
+                    lineHeight: 1.8,
+                  }}>
+                    {img.title}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div style={{ display: 'flex', gap: '0.4rem', marginTop: '1.25rem' }}>
+          {GALLERY_IMAGES.map((_, i) => (
+            <button key={i} onClick={() => setGalleryIndex(i)} style={dot(i === galleryIndex)} />
+          ))}
+        </div>
+
+        {/* Prev / count / Next */}
+        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', alignItems: 'center' }}>
+          <button onClick={() => setGalleryIndex(i => Math.max(0, i-1))} disabled={galleryIndex === 0} style={navBtn(galleryIndex === 0)}>←</button>
+          <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+            {galleryIndex + 1} / {GALLERY_IMAGES.length}
+          </span>
+          <button onClick={() => setGalleryIndex(i => Math.min(GALLERY_IMAGES.length-1, i+1))} disabled={galleryIndex === GALLERY_IMAGES.length-1} style={navBtn(galleryIndex === GALLERY_IMAGES.length-1)}>→</button>
         </div>
       </section>
 
