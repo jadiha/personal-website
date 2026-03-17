@@ -22,6 +22,7 @@ const GALLERY_IMAGES = [
 export default function MobilePage() {
   const [history, setHistory] = useState<CommandHistory[]>([]);
   const [galleryIndex, setGalleryIndex] = useState(0);
+  const [showKeepScrolling, setShowKeepScrolling] = useState(false);
   const skyCanvasRef = useRef<HTMLCanvasElement>(null);
   const terminalContentRef = useRef<HTMLDivElement>(null);
   const lastItemRef = useRef<HTMLDivElement>(null);
@@ -237,6 +238,18 @@ export default function MobilePage() {
 
     setHistory(prev => [...prev, { command, output }]);
   };
+
+  // Show "keep scrolling" only while on terminal section, hide once gallery is fully visible
+  useEffect(() => {
+    const vh = window.innerHeight;
+    const handle = () => {
+      const y = window.scrollY;
+      setShowKeepScrolling(y > vh * 0.6 && y < vh * 1.8);
+    };
+    window.addEventListener('scroll', handle, { passive: true });
+    handle();
+    return () => window.removeEventListener('scroll', handle);
+  }, []);
 
   // Auto-run help
   useEffect(() => { handleCommand('help'); }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -458,6 +471,9 @@ export default function MobilePage() {
           letterSpacing: '0.08em',
           textShadow: '0 0 8px rgba(255,179,198,0.9), 0 0 20px rgba(255,255,255,0.5)',
           animation: 'bounce 2s ease-in-out infinite',
+          opacity: showKeepScrolling ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+          pointerEvents: 'none',
         }}>
           keep scrolling ↓
         </div>
