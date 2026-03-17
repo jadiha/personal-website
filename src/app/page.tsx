@@ -53,7 +53,7 @@ export default function Home() {
   const contentContainerRef = useRef<HTMLDivElement>(null);
   const skyCanvasRef = useRef<HTMLCanvasElement>(null);
   const targetProgressRef = useRef(0);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number>(0);
 
   const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
   const ramp = (v: number, start: number, end: number) => clamp((v - start) / (end - start), 0, 1);
@@ -106,7 +106,6 @@ export default function Home() {
     if (!ctx) return;
 
     const W = 320;
-    const H = 180;
 
     // Sky bands top → horizon
     const bands: [number, number, string][] = [
