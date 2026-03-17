@@ -20,10 +20,7 @@ const GALLERY_IMAGES = [
 ];
 
 export default function MobilePage() {
-  const [input, setInput] = useState('');
   const [history, setHistory] = useState<CommandHistory[]>([]);
-  const [commandHistory, setCommandHistory] = useState<string[]>([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const skyCanvasRef = useRef<HTMLCanvasElement>(null);
   const terminalContentRef = useRef<HTMLDivElement>(null);
@@ -102,29 +99,23 @@ export default function MobilePage() {
     const cmd = command.toLowerCase().trim();
     let output: React.ReactNode;
 
-    if (cmd) {
-      setCommandHistory(prev => [...prev, cmd]);
-      setHistoryIndex(-1);
-    }
-
     switch (cmd) {
       case 'help':
         output = (
           <div className="command-output">
-            <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '0.5rem' }}>tap any button below to explore ✿</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.25rem 1rem' }}>
               {[
                 ['about', '👋 About me'],
                 ['experience', '💼 Work history'],
                 ['skills', '💫 Tech skills'],
-                ['projects', '🚀 My projects'],
-                ['socials', '📬 Contact links'],
-                ['download', '📄 Resume PDF'],
-                ['clear', '🧹 Clear'],
-                ['help', '❓ Commands'],
+                ['projects', '🚀 Projects'],
+                ['socials', '📬 Contact'],
+                ['download', '📄 Resume'],
               ].map(([c, desc]) => (
-                <div key={c} className="flex items-center gap-1.5">
-                  <span className="text-pink-500 font-medium min-w-[60px] text-xs">{c}</span>
-                  <span className="text-gray-600 text-xs">{desc}</span>
+                <div key={c} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <span style={{ color: 'var(--rose)', fontWeight: 600, fontSize: '0.8rem', minWidth: 60 }}>{c}</span>
+                  <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{desc.split(' ').slice(1).join(' ')}</span>
                 </div>
               ))}
             </div>
@@ -249,42 +240,17 @@ export default function MobilePage() {
 
       case 'clear':
         setHistory([]);
-        output = <div className="text-gray-500 command-output text-xs">Cleared. Type &apos;help&apos; to start.</div>;
-        break;
+        return;
 
       default:
         output = (
-          <div className="text-pink-400 command-output text-xs">
-            Command not found. Type &apos;help&apos;! 🌸
+          <div className="text-pink-400 command-output">
+            Unknown command 🌸
           </div>
         );
     }
 
     setHistory(prev => [...prev, { command, output }]);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleCommand(input);
-      setInput('');
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (commandHistory.length > 0 && historyIndex < commandHistory.length - 1) {
-        const i = historyIndex + 1;
-        setHistoryIndex(i);
-        setInput(commandHistory[commandHistory.length - 1 - i]);
-      }
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (historyIndex > 0) {
-        const i = historyIndex - 1;
-        setHistoryIndex(i);
-        setInput(commandHistory[commandHistory.length - 1 - i]);
-      } else {
-        setHistoryIndex(-1);
-        setInput('');
-      }
-    }
   };
 
   // Auto-run help
@@ -485,48 +451,79 @@ export default function MobilePage() {
         position: 'relative', zIndex: 10,
         padding: '0.75rem',
       }}>
-        <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '90svh', padding: '1rem', paddingTop: '3rem' }}>
-          <div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
-            <p style={{ color: 'var(--text)', fontSize: '0.75rem' }}>
-              Type <span style={{ color: 'var(--rose)', fontWeight: 600 }}>help</span> to get started
-            </p>
+        <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '90svh', padding: '1rem', paddingTop: '3rem', display: 'flex', flexDirection: 'column' }}>
+
+          {/* Output area */}
+          <div
+            ref={terminalContentRef}
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              fontFamily: "'SF Mono', Menlo, monospace",
+              fontSize: '0.85rem',
+              lineHeight: 1.5,
+              paddingBottom: '0.5rem',
+            }}
+          >
+            {history.length === 0 && (
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', marginTop: '2rem' }}>
+                tap a command below ✿
+              </p>
+            )}
+            {history.map((item, index) => (
+              <div key={index} style={{ marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '0.25rem' }}>
+                  <span style={{ color: 'var(--rose)', fontWeight: 600 }}>~$</span>
+                  <span style={{ color: 'var(--text)' }}>{item.command}</span>
+                </div>
+                <div>{item.output}</div>
+              </div>
+            ))}
           </div>
 
-          <div className="content-container" ref={terminalContentRef} style={{ flex: 1 }}>
-            <div className="terminal-content">
-              {history.map((item, index) => (
-                <div key={index} className="mb-4">
-                  <div className="terminal-prompt" style={{ fontSize: '0.78rem' }}>
-                    <span>visitor</span>
-                    <span style={{ color: 'var(--text-faint)' }}>@</span>
-                    <span>jadiha</span>
-                    <span style={{ color: 'var(--text-faint)' }}>:</span>
-                    <span style={{ color: 'var(--rose)' }}>~$</span>
-                    <span className="ml-2" style={{ color: 'var(--text)' }}>{item.command}</span>
-                  </div>
-                  <div className="mt-1">{item.output}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="terminal-input">
-              <div className="terminal-prompt" style={{ fontSize: '0.78rem' }}>
-                <span>visitor</span>
-                <span style={{ color: 'var(--text-faint)' }}>@</span>
-                <span>jadiha</span>
-                <span style={{ color: 'var(--text-faint)' }}>:</span>
-                <span style={{ color: 'var(--rose)' }}>~$</span>
-                <input
-                  type="text"
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  className="ml-2 bg-transparent outline-none flex-1"
-                  style={{ fontSize: '0.78rem' }}
-                  placeholder="tap to type a command..."
-                />
-              </div>
-            </div>
+          {/* Command buttons */}
+          <div style={{
+            borderTop: '2px solid var(--border)',
+            paddingTop: '0.75rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '0.5rem',
+          }}>
+            {[
+              { cmd: 'about',      emoji: '👋' },
+              { cmd: 'experience', emoji: '💼' },
+              { cmd: 'skills',     emoji: '💫' },
+              { cmd: 'projects',   emoji: '🚀' },
+              { cmd: 'socials',    emoji: '📬' },
+              { cmd: 'download',   emoji: '📄' },
+              { cmd: 'help',       emoji: '❓' },
+              { cmd: 'clear',      emoji: '🧹' },
+            ].map(({ cmd, emoji }) => (
+              <button
+                key={cmd}
+                onClick={() => handleCommand(cmd)}
+                style={{
+                  background: 'rgba(255,246,243,0.7)',
+                  border: '2px solid var(--border)',
+                  borderRadius: 10,
+                  padding: '0.5rem 0.25rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '0.2rem',
+                  transition: 'all 0.15s ease',
+                  backdropFilter: 'blur(6px)',
+                  WebkitBackdropFilter: 'blur(6px)',
+                  fontFamily: 'ui-monospace, monospace',
+                }}
+                onTouchStart={e => (e.currentTarget.style.background = 'rgba(255,179,198,0.35)')}
+                onTouchEnd={e => (e.currentTarget.style.background = 'rgba(255,246,243,0.7)')}
+              >
+                <span style={{ fontSize: '1.1rem' }}>{emoji}</span>
+                <span style={{ fontSize: '0.55rem', color: 'var(--text-muted)', fontFamily: 'var(--font-press-start)' }}>{cmd}</span>
+              </button>
+            ))}
           </div>
         </div>
       </section>
