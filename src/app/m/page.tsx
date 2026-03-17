@@ -34,20 +34,20 @@ export default function MobilePage() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const W = 180, H = 320;
-    const skyH = Math.round(H * 0.82);
 
-    // Smooth sky gradient — no hard edges
-    const skyGrad = ctx.createLinearGradient(0, 0, 0, skyH);
+    // Full-canvas ombre: deep blue → pale sky → warm horizon → grass
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, H);
     skyGrad.addColorStop(0,    '#4AAEDE');
-    skyGrad.addColorStop(0.35, '#6EC6E8');
-    skyGrad.addColorStop(0.62, '#96D9F0');
-    skyGrad.addColorStop(1.0,  '#C0EAF8');
+    skyGrad.addColorStop(0.30, '#6EC6E8');
+    skyGrad.addColorStop(0.55, '#96D9F0');
+    skyGrad.addColorStop(0.75, '#C0EAF8');
+    skyGrad.addColorStop(0.85, '#D8F0F8');
+    skyGrad.addColorStop(0.88, '#5DBF5D');
+    skyGrad.addColorStop(1.0,  '#3A9A3A');
     ctx.fillStyle = skyGrad;
-    ctx.fillRect(0, 0, W, skyH);
+    ctx.fillRect(0, 0, W, H);
 
-    // Ground — always at the very bottom
-    ctx.fillStyle = '#3A9A3A'; ctx.fillRect(0, H - 36, W, 36);
-    ctx.fillStyle = '#5DBF5D'; ctx.fillRect(0, H - 36, W, 5);
+    // Bright grass highlight strip
     ctx.fillStyle = '#80D480'; ctx.fillRect(0, H - 38, W, 3);
 
     const cloud = (x: number, y: number, s: number) => {
@@ -70,7 +70,7 @@ export default function MobilePage() {
     // Flowers along grass line
     const flowerColors = ['#FF9CAE', '#FFE566', '#FFFFFF', '#FFD9E4', '#FFCBA8'];
     [8, 22, 38, 55, 72, 90, 108, 125, 142, 158, 170].forEach((fx, i) => {
-      const fy = H - 40;
+      const fy = H - 42;
       ctx.fillStyle = '#FFEE88'; ctx.fillRect(fx, fy, 2, 2);
       ctx.fillStyle = flowerColors[i % flowerColors.length];
       ctx.fillRect(fx-2, fy, 2, 2); ctx.fillRect(fx+2, fy, 2, 2);
