@@ -564,7 +564,7 @@ export default function MobilePage() {
       </section>
 
       <style>{`
-        html, body { background: #3A9A3A !important; }
+        html, body { background: #96D9F0 !important; }
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
           50%       { transform: translateY(-10px); }
