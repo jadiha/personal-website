@@ -280,8 +280,11 @@ export default function MobilePage() {
         height={320}
         style={{
           position: 'fixed', top: 0, left: 0,
-          width: '100vw', height: '100vh',
-          zIndex: 1, imageRendering: 'pixelated',
+          width: '100dvw', height: '100dvh',
+          zIndex: 1,
+          imageRendering: 'pixelated',
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ...({ WebkitImageRendering: 'pixelated' } as any),
         }}
       />
 
@@ -292,7 +295,7 @@ export default function MobilePage() {
         alignItems: 'center', justifyContent: 'center',
         position: 'relative', zIndex: 10,
         textAlign: 'center', padding: '2rem 1.5rem',
-        background: 'linear-gradient(160deg, rgba(255,246,243,0.55) 0%, rgba(255,246,243,0.3) 50%, rgba(255,203,168,0.1) 100%)',
+        background: 'linear-gradient(160deg, rgba(255,246,243,0.25) 0%, rgba(255,246,243,0.1) 50%, rgba(255,203,168,0.05) 100%)',
       }}>
         {/* Avatar */}
         <div style={{ width: 110, height: 110, margin: '0 auto 1.5rem', position: 'relative' }}>
@@ -351,7 +354,7 @@ export default function MobilePage() {
         alignItems: 'center', justifyContent: 'center',
         position: 'relative', zIndex: 10,
         padding: '2rem 0',
-        background: 'linear-gradient(160deg, rgba(255,203,168,0.2) 0%, rgba(255,246,243,0.9) 50%, rgba(255,179,198,0.2) 100%)',
+        background: 'linear-gradient(160deg, rgba(255,203,168,0.15) 0%, rgba(255,246,243,0.55) 50%, rgba(255,179,198,0.15) 100%)',
       }}>
         <h2 style={{
           fontFamily: 'var(--font-press-start)',
