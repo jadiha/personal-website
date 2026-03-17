@@ -559,7 +559,7 @@ export default function Home() {
               textShadow: '0 0 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,200,220,0.4)',
             }}
           >
-            scroll to begin the journey
+            scroll down to begin the journey
           </motion.p>
           <motion.div
             animate={{ y: [0, -10, 0] }}

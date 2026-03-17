@@ -24,6 +24,7 @@ export default function MobilePage() {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const skyCanvasRef = useRef<HTMLCanvasElement>(null);
   const terminalContentRef = useRef<HTMLDivElement>(null);
+  const lastItemRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
 
   // Draw static pixel sky — portrait orientation (180×320)
@@ -88,10 +89,10 @@ export default function MobilePage() {
     ctx.fillRect(W - 11, 14, 3, 4);
   }, []);
 
-  // Auto-scroll terminal
+  // Scroll to top of new output so user reads from beginning
   useEffect(() => {
-    if (terminalContentRef.current) {
-      terminalContentRef.current.scrollTop = terminalContentRef.current.scrollHeight;
+    if (lastItemRef.current) {
+      lastItemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [history]);
 
@@ -339,7 +340,7 @@ export default function MobilePage() {
           marginBottom: '2.5rem',
           letterSpacing: '0.05em',
         }}>
-          scroll to begin the journey
+          scroll down to begin the journey
         </p>
 
         <div style={{
@@ -468,7 +469,7 @@ export default function MobilePage() {
           >
 
             {history.map((item, index) => (
-              <div key={index} style={{ marginBottom: '1rem' }}>
+              <div key={index} ref={index === history.length - 1 ? lastItemRef : null} style={{ marginBottom: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '0.25rem' }}>
                   <span style={{ color: 'var(--rose)', fontWeight: 600 }}>~$</span>
                   <span style={{ color: 'var(--text)' }}>{item.command}</span>
