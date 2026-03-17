@@ -33,14 +33,14 @@ const ASCII_ART = `
 `;
 
 const GALLERY_IMAGES = [
-  { src: 'amazon2.jpeg', title: 'Amazon Internship' },
-  { src: 'Ambassadors.jpeg', title: 'Tech Leadership' },
-  { src: 'DSC00227.JPG', title: 'Problem Solving' },
-  { src: 'DSC03005.jpg', title: 'Team Collaboration' },
-  { src: 'DSC05871.JPG', title: 'Innovation' },
-  { src: 'HackTheNorth.jpg', title: 'Hackathon Winner' },
-  { src: 'IMG_6300.jpg', title: 'Tech Conference' },
-  { src: 'IMG-20240715-WA0005.jpg', title: 'Project Demo' }
+  { src: 'OrientationWeek.jpeg', title: 'Orientation Week Leaders 2025' },
+  { src: 'Ambassadors.jpeg', title: 'Engineering Ambassadors 2024' },
+  { src: 'HackTheNorth.jpg', title: 'Hack The North 2022' },
+  { src: 'DSC03005.jpg', title: 'Acapella 2023' },
+  { src: 'OrientationSpirit.jpg', title: 'Black and Gold Day 2022' },
+  { src: 'DSC00227.JPG', title: 'Women in Engineering Kick Off 2024' },
+  { src: 'Volleyball.jpg', title: 'Wealthsimple Beach Volleyball 2025' },
+  { src: 'IMG-20240715-WA0005.jpg', title: 'Engineering Day 2024' }
 ];
 
 
@@ -557,7 +557,7 @@ export default function Home() {
               fontFamily: 'ui-monospace, SF Mono, Menlo, monospace',
               letterSpacing: '0.05em',
               color: '#FFFFFF',
-              textShadow: '0 0 8px rgba(255,179,198,0.8), 0 0 20px rgba(255,156,174,0.6), 0 0 40px rgba(255,100,150,0.4)',
+              textShadow: '0 0 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,200,220,0.4)',
             }}
           >
             scroll to begin the journey
@@ -600,7 +600,7 @@ export default function Home() {
             {GALLERY_IMAGES.map((image, index) => (
               <div
                 key={index}
-                className="gallery-item"
+                className="gallery-item group"
               >
                 <Image
                   src={`/gallery/${image.src}`}
@@ -610,9 +610,14 @@ export default function Home() {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-xl font-semibold">{image.title}</h3>
+                <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <span style={{
+                    fontSize: '0.6rem',
+                    fontFamily: 'var(--font-press-start)',
+                    color: '#fff',
+                    textShadow: '0 1px 4px rgba(0,0,0,0.5)',
+                    letterSpacing: '0.03em',
+                  }}>{image.title}</span>
                 </div>
               </div>
             ))}

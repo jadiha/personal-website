@@ -191,8 +191,12 @@ section {
 .terminal-input {
   margin-top: auto;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 179, 198, 0.3);
-  background: transparent;
+  border: 2px solid var(--border);
+  background: rgba(255, 246, 243, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 0 0 8px 8px;
+  padding: 0.75rem 1rem;
   position: sticky;
   bottom: 0;
   z-index: 10;
