@@ -190,7 +190,8 @@ export default function MobilePage() {
                 </div>
               ))}
             </div>
-            <p className="mt-5 text-gray-500 text-xs">More on <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
+            <hr style={{ borderColor: 'var(--border)', marginTop: '1rem', marginBottom: '0.75rem' }} />
+            <p className="text-gray-500 text-xs">More on <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
           </div>
         );
         break;
