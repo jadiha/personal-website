@@ -366,12 +366,12 @@ export default function MobilePage() {
           <div style={{ textAlign: 'center', marginBottom: '0.75rem', flexShrink: 0 }}>
             <p style={{
               fontFamily: 'var(--font-press-start)',
-              fontSize: '0.6rem',
+              fontSize: '0.75rem',
               color: 'var(--rose)',
-              letterSpacing: '0.05em',
+              letterSpacing: '0.1em',
               lineHeight: 2,
             }}>
-              jadiha aruleswaran
+              JADIHA
             </p>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '0.1rem' }}>
               tap a command below ✿
@@ -446,6 +446,20 @@ export default function MobilePage() {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Keep scrolling hint */}
+        <div style={{
+          marginTop: '1rem',
+          textAlign: 'center',
+          fontFamily: 'var(--font-press-start)',
+          fontSize: '0.45rem',
+          color: '#FFFFFF',
+          letterSpacing: '0.08em',
+          textShadow: '0 0 8px rgba(255,179,198,0.9), 0 0 20px rgba(255,255,255,0.5)',
+          animation: 'bounce 2s ease-in-out infinite',
+        }}>
+          keep scrolling ↓
         </div>
       </section>
 
