@@ -393,7 +393,7 @@ export default function Home() {
                 <p className="text-gray-600 ml-4">A sneak peek into Jadiha&apos;s world — the one you&apos;re in right now :)</p>
               </div>
             </div>
-            <p className="mt-3 text-gray-500">More on my <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
+            <p className="mt-6 text-gray-500">More on my <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
           </div>
         );
         break;
@@ -416,13 +416,8 @@ export default function Home() {
         break;
 
       case 'clear':
-        setHistory([]);
-        output = (
-          <div className="text-gray-500 command-output">
-            Terminal cleared. Type &apos;help&apos; to see available commands.
-          </div>
-        );
-        break;
+        setHistory(prev => prev.slice(0, 1));
+        return;
 
       default:
         output = (

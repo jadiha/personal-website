@@ -195,7 +195,7 @@ export default function MobilePage() {
                 </div>
               ))}
             </div>
-            <p className="mt-2 text-gray-500 text-xs">More on <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
+            <p className="mt-5 text-gray-500 text-xs">More on <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
           </div>
         );
         break;
@@ -225,7 +225,7 @@ export default function MobilePage() {
         break;
 
       case 'clear':
-        setHistory([]);
+        setHistory(prev => prev.slice(0, 1));
         return;
 
       default:
