@@ -34,13 +34,16 @@ export default function MobilePage() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const W = 180, H = 320;
+    const skyH = Math.round(H * 0.82);
 
-    // Sky bands — full portrait, proportional to H
-    const skyH = Math.round(H * 0.82); // sky occupies top 82%
-    ctx.fillStyle = '#4AAEDE'; ctx.fillRect(0, 0,                        W, Math.round(skyH * 0.30));
-    ctx.fillStyle = '#6EC6E8'; ctx.fillRect(0, Math.round(skyH * 0.30),  W, Math.round(skyH * 0.22));
-    ctx.fillStyle = '#96D9F0'; ctx.fillRect(0, Math.round(skyH * 0.52),  W, Math.round(skyH * 0.28));
-    ctx.fillStyle = '#C0EAF8'; ctx.fillRect(0, Math.round(skyH * 0.80),  W, Math.round(skyH * 0.20));
+    // Smooth sky gradient — no hard edges
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, skyH);
+    skyGrad.addColorStop(0,    '#4AAEDE');
+    skyGrad.addColorStop(0.35, '#6EC6E8');
+    skyGrad.addColorStop(0.62, '#96D9F0');
+    skyGrad.addColorStop(1.0,  '#C0EAF8');
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, W, skyH);
 
     // Ground — always at the very bottom
     ctx.fillStyle = '#3A9A3A'; ctx.fillRect(0, H - 36, W, 36);
