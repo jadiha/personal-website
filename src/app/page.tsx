@@ -393,7 +393,7 @@ export default function Home() {
                 <p className="text-gray-600 ml-4">A sneak peek into Jadiha&apos;s world — the one you&apos;re in right now :)</p>
               </div>
             </div>
-            <p className="mt-6 text-gray-500">More on my <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
+            <p className="mt-10 text-gray-500">More on my <a href="https://github.com/jadiha" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:underline">GitHub</a>!</p>
           </div>
         );
         break;
