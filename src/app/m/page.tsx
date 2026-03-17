@@ -88,10 +88,13 @@ export default function MobilePage() {
     ctx.fillRect(W - 11, 14, 3, 4);
   }, []);
 
-  // Scroll to top of new output — only after user taps a button, not on initial help
+  // Scroll within terminal to show top of new output — never scrolls the page
   useEffect(() => {
-    if (history.length > 1 && lastItemRef.current) {
-      lastItemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (history.length > 1 && lastItemRef.current && terminalContentRef.current) {
+      const container = terminalContentRef.current;
+      const item = lastItemRef.current;
+      const offset = item.offsetTop - container.offsetTop;
+      container.scrollTo({ top: offset, behavior: 'smooth' });
     }
   }, [history]);
 
