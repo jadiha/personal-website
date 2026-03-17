@@ -89,9 +89,9 @@ export default function MobilePage() {
     ctx.fillRect(W - 11, 14, 3, 4);
   }, []);
 
-  // Scroll to top of new output so user reads from beginning
+  // Scroll to top of new output — only after user taps a button, not on initial help
   useEffect(() => {
-    if (lastItemRef.current) {
+    if (history.length > 1 && lastItemRef.current) {
       lastItemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [history]);
