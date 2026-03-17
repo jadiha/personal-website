@@ -544,8 +544,7 @@ export default function MobilePage() {
       </section>
 
       <style>{`
-        html { background: #3A9A3A !important; }
-        body { background: linear-gradient(to bottom, #4AAEDE, #6EC6E8, #C0EAF8, #3A9A3A) !important; }
+        html, body { background: #3A9A3A !important; }
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
           50%       { transform: translateY(-10px); }
