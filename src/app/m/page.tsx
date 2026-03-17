@@ -310,12 +310,13 @@ export default function MobilePage() {
 
       {/* ── Section 1: Welcome ───────────────────────────────────── */}
       <section style={{
-        minHeight: '100svh',
+        height: '100dvh',
+        minHeight: '100dvh',
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
         position: 'relative', zIndex: 10,
         textAlign: 'center', padding: '2rem 1.5rem',
-        background: 'linear-gradient(160deg, rgba(255,246,243,0.25) 0%, rgba(255,246,243,0.1) 50%, rgba(255,203,168,0.05) 100%)',
+        overflow: 'hidden',
       }}>
         {/* Avatar */}
         <div style={{ width: 110, height: 110, margin: '0 auto 1.5rem', position: 'relative' }}>
