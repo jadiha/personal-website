@@ -435,9 +435,10 @@ export default function MobilePage() {
       <section style={{
         minHeight: '100svh',
         display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
+        alignItems: 'center', justifyContent: 'flex-start',
         position: 'relative', zIndex: 10,
         padding: '0.75rem',
+        paddingTop: '4svh',
       }}>
         <div className="terminal-window" style={{ width: '100%', maxWidth: '100%', height: '90svh', padding: '1rem', paddingTop: '3rem', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
