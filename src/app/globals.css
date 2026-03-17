@@ -121,7 +121,7 @@ section {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -190,16 +190,16 @@ section {
 
 .terminal-input {
   margin-top: auto;
-  padding-top: 0.75rem;
   border: 2px solid var(--border);
   background: rgba(255, 246, 243, 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-radius: 0 0 8px 8px;
+  border-radius: 8px;
   padding: 0.75rem 1rem;
   position: sticky;
-  bottom: 0;
+  bottom: 1rem;
   z-index: 10;
+  margin-bottom: 0;
 }
 
 /* ── Command output ──────────────────────────────────────────────────────── */
