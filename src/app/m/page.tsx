@@ -35,19 +35,14 @@ export default function MobilePage() {
     if (!ctx) return;
     const W = 180, H = 320;
 
-    // Sky bands — tall portrait layout
-    const bands: [number, number, string][] = [
-      [0,   90, '#4AAEDE'],
-      [90,  70, '#6EC6E8'],
-      [160, 60, '#96D9F0'],
-      [220, 40, '#C0EAF8'],
-    ];
-    bands.forEach(([y, h, color]) => {
-      ctx.fillStyle = color;
-      ctx.fillRect(0, y, W, h);
-    });
+    // Sky bands — full portrait, proportional to H
+    const skyH = Math.round(H * 0.82); // sky occupies top 82%
+    ctx.fillStyle = '#4AAEDE'; ctx.fillRect(0, 0,                        W, Math.round(skyH * 0.30));
+    ctx.fillStyle = '#6EC6E8'; ctx.fillRect(0, Math.round(skyH * 0.30),  W, Math.round(skyH * 0.22));
+    ctx.fillStyle = '#96D9F0'; ctx.fillRect(0, Math.round(skyH * 0.52),  W, Math.round(skyH * 0.28));
+    ctx.fillStyle = '#C0EAF8'; ctx.fillRect(0, Math.round(skyH * 0.80),  W, Math.round(skyH * 0.20));
 
-    // Ground
+    // Ground — always at the very bottom
     ctx.fillStyle = '#3A9A3A'; ctx.fillRect(0, H - 36, W, 36);
     ctx.fillStyle = '#5DBF5D'; ctx.fillRect(0, H - 36, W, 5);
     ctx.fillStyle = '#80D480'; ctx.fillRect(0, H - 38, W, 3);
@@ -72,7 +67,7 @@ export default function MobilePage() {
     // Flowers along grass line
     const flowerColors = ['#FF9CAE', '#FFE566', '#FFFFFF', '#FFD9E4', '#FFCBA8'];
     [8, 22, 38, 55, 72, 90, 108, 125, 142, 158, 170].forEach((fx, i) => {
-      const fy = H - 41;
+      const fy = H - 40;
       ctx.fillStyle = '#FFEE88'; ctx.fillRect(fx, fy, 2, 2);
       ctx.fillStyle = flowerColors[i % flowerColors.length];
       ctx.fillRect(fx-2, fy, 2, 2); ctx.fillRect(fx+2, fy, 2, 2);
